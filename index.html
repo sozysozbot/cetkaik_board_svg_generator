@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="UTF-8">
     <style type="text/css">
@@ -6,6 +7,7 @@
             margin: auto;
             width: 90%;
         }
+
         #download {
             margin: auto;
             width: 288px;
@@ -13,6 +15,7 @@
     </style>
     <title>cerke board svg generator</title>
 </head>
+
 <body>
     <div id="res">
         <svg id="result" width="173.36mm" height="168.04mm" version="1.1" viewBox="0 0 173.36 168.04"
@@ -35,6 +38,16 @@
                 onchange="document.getElementById('tamhue_slash').checked = this.checked; render()"><label
                 for="tamhue_background">皇処背景</label>
             <input type="checkbox" id="tamhue_slash" checked onchange="render()"><label for="tamhue_slash">皇処斜線</label>
+        </li>
+        <li>
+            <input type="radio" name="tamzo_color" id="tamzo_green" onchange="render()" checked><label
+                for="tamzo_green">皇山は緑</label>
+            <input type="radio" name="tamzo_color" id="tamzo_orange" onchange="render()"><label
+                for="tamzo_orange">皇山はオレンジ</label>
+            <input type="radio" name="tamzo_color" id="tamzo_blue" onchange="render()"><label
+                for="tamzo_blue">皇山は水色</label>
+            <input type="radio" name="tamzo_color" id="tamzo_white" onchange="render()"><label
+                for="tamzo_white">皇山は白</label>
         </li>
     </ul>
     <div id="download"></div>
@@ -130,15 +143,10 @@
                 return `<path d="m${x} ${y}s2.5506 2.2958 2.5931 2.5084c0.0425 0.21256 1.403-1.6154 1.403-1.6154s-1.743-0.63791-3.9961-0.89297zm4.9718 2.3482s-2.7253 1.8258-5.6183 2.3864l0.59066 0.35036 2.1523-0.43563c-0.0588 0.95698-0.14901 1.7997-0.27905 2.529-0.79513 0.32916-1.6852 0.62936-2.5921 0.80511l0.59066 0.35037 1.8376-0.37207c-0.74569 3.0997-2.3165 4.1333-4.8845 5.642 3.7556-0.49344 5.5959-3.7207 6.4337-5.9552l3.4334-0.69505-1.7927-1.3565s-0.47125 0.3101-1.2082 0.70951c0.13355-0.50099 0.19069-0.82268 0.19069-0.82268l-1.2439-0.93276 4.1822-0.84595zm-0.48679 6.983s2.3382 1.5304 3.5073 3.5496c1.0415-0.55265 2.0402-0.91364 2.0402-0.91364s-1.7002-2.4022-5.5475-2.636z" ${coloring}/>`;
             }
         }
-        function main_g({ water_edge, coordinate, tamhue_background, tamnua_background, tamhue_slash }) {
+        function main_g({ water_edge, coordinate, tamhue_background, tamnua_background, tamhue_slash, tamzo_color }) {
             const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             g.setAttribute("transform", "translate(-41.069 -78.153)");
-            const tamnua = tamnua_background ? ' fill="#87aade"' : ' fill="none"';
             const tamnua_ = tamnua_background ? '#87aade' : 'none';
-            g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-175.77" width="17.561" height="17.561" fill="#005242"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-opacity=".94118"
-                stroke-width=".43902" style="paint-order:stroke fill markers" />`;
-            const tamhue = tamhue_background ? ' fill="#ffb380"' : ' fill="none"';
             const tamhue_ = tamhue_background ? '#ffb380' : 'none';
             function square_inv(column, row, fill) {
                 const LEFT = {
@@ -157,11 +165,21 @@
                     const row = [
                         'A', 'E', 'I', 'U', 'O', 'Y', 'AI', 'AU', 'IA'
                     ][j];
-                    g.innerHTML += square_inv(
-                        column, row,
-                        ["ZI", "ZU", "NO", "TO", "XO", "CO", "ZY", "ZAI"].includes(`${column}${row}`) ? tamnua_ :
-                            ["NI", "CI", "TU", "XU", "TY", "XY", "NAI", "CAI"].includes(`${column}${row}`) ? tamhue_ : "none"
-                    );
+
+                    if (["ZI", "ZU", "NO", "TO", "XO", "CO", "ZY", "ZAI"].includes(`${column}${row}`)) {
+                        g.innerHTML += square_inv(column, row, tamnua_);
+                    } else if (["NI", "CI", "TU", "XU", "TY", "XY", "NAI", "CAI"].includes(`${column}${row}`)) {
+                        g.innerHTML += square_inv(column, row, tamhue_);
+                    } else if ("ZO" === `${column}${row}`) {
+                        switch (tamzo_color) {
+                            case "white": g.innerHTML += square_inv(column, row, "none"); break;
+                            case "green": g.innerHTML += square_inv(column, row, "#005242"); break;
+                            case "orange": g.innerHTML += square_inv(column, row, tamhue_); break;
+                            case "blue": g.innerHTML += square_inv(column, row, tamnua_); break;
+                        }
+                    } else {
+                        g.innerHTML += square_inv(column, row, "none");
+                    }
                 }
             }
             if (tamhue_slash) {
@@ -221,7 +239,7 @@
             g.innerHTML += piece_path('黒', '将', 'X', 'IA', 0);
             g.innerHTML += piece_path('黒', '王', 'Z', 'IA', 0);
             g.innerHTML += piece_path('赤', '将', 'T', 'IA', 0);
-     
+
             if (water_edge) {
                 // ZAI の水端マーク1
                 g.innerHTML += `<path d="m128.05 206.49v3.449h-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
@@ -255,6 +273,7 @@
                 tamhue_background: document.getElementById("tamhue_background").checked,
                 tamnua_background: document.getElementById("tamnua_background").checked,
                 tamhue_slash: document.getElementById("tamhue_slash").checked,
+                tamzo_color: document.getElementById("tamzo_green").checked ? "green" : document.getElementById("tamzo_orange").checked ? "orange" : document.getElementById("tamzo_blue").checked ? "blue" : document.getElementById("tamzo_white").checked ? "white" : null
             });
             document.getElementById("result").innerHTML = ""; // clear
             document.getElementById("result").appendChild(g);
