@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="UTF-8">
     <style type="text/css">
         #result {
             margin: auto;
@@ -142,6 +143,7 @@
             g.setAttribute("transform", "translate(-41.069 -78.153)");
 
             const tamnua = tamnua_background ? ' fill="#87aade"' : ' fill="none"';
+            const tamnua_ = tamnua_background ? '#87aade' : 'none';
             g.innerHTML = `<rect x="111.49" y="193.31" width="17.561" height="17.561"${tamnua} stroke="#000"
                 stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
                 style="paint-order:fill markers stroke" />`;
@@ -200,7 +202,6 @@
             </g>
             `;
             g.innerHTML += piece_path('赤', '兵', 'M', 'I', 180);
-
             g.innerHTML += square_inv('M', 'I', "none");
 
             g.innerHTML += piece_path('黒', '兵', 'P', 'I', 180);
@@ -209,12 +210,15 @@
             g.innerHTML += piece_path('赤', '船', 'Z', 'I', 180);
             g.innerHTML += piece_path('赤', '兵', 'X', 'I', 180);
             g.innerHTML += piece_path('黒', '兵', 'C', 'I', 180);
+
             g.innerHTML += piece_path('赤', '兵', 'T', 'I', 180);
             g.innerHTML += square_inv('T', 'I', "none");
-            g.innerHTML += piece_path('赤', '兵', 'L', 'I', 180);
 
+            g.innerHTML += piece_path('赤', '兵', 'L', 'I', 180);
             g.innerHTML += square_inv('L', 'I', "none");
+
             g.innerHTML += piece_path('黒', '兵', 'N', 'I', 180);
+
             g.innerHTML += piece_path('黒', '兵', 'K', 'I', 180);
             g.innerHTML += square_inv('K', 'I', "none");
 
@@ -222,131 +226,73 @@
             g.innerHTML += square_inv('L', 'E', "none");
 
             g.innerHTML += square_inv('T', 'E', "none");
+
             g.innerHTML += piece_path('赤', '巫', 'K', 'E', 180);
             g.innerHTML += square_inv('K', 'E', "none");
 
             g.innerHTML += piece_path('黒', '弓', 'M', 'E', 180);
             g.innerHTML += square_inv('M', 'E', "none");
+
             g.innerHTML += piece_path('黒', '虎', 'X', 'E', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-146.6" y="-123.12" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('X', 'E', "none");
+
             g.innerHTML += piece_path('黒', '巫', 'P', 'E', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-199.25" y="-123.12" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-164.15" y="-123.12" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-123.12" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-93.95" y="-123.12" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('P', 'E', "none");
+
+            g.innerHTML += square_inv('C', 'E', "none");
+            g.innerHTML += square_inv('Z', 'E', "none");
+            g.innerHTML += square_inv('N', 'E', "none");
+
             g.innerHTML += piece_path('黒', '車', 'N', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-93.95" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('N', 'A', "none");
+
             g.innerHTML += piece_path('赤', '馬', 'M', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-181.7" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('M', 'A', "none");
+
             g.innerHTML += piece_path('赤', '筆', 'P', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-199.25" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('P', 'A', "none");
+
             g.innerHTML += piece_path('赤', '車', 'C', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-164.15" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('C', 'A', "none");
 
             g.innerHTML += piece_path('黒', '馬', 'L', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-76.4" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-58.85" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('L', 'A', "none");
+
+            g.innerHTML += square_inv('K', 'A', "none");
             g.innerHTML += piece_path('黒', '筆', 'K', 'A', 180);
+
             g.innerHTML += piece_path('黒', '将', 'T', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-111.5" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('T', 'A', "none");
+
             g.innerHTML += piece_path('赤', '王', 'Z', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('Z', 'A', "none");
             g.innerHTML += piece_path('赤', '将', 'X', 'A', 180);
-            g.innerHTML += `<rect transform="scale(-1)" x="-146.6" y="-105.57" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-181.7" y="-158.22" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-199.25" y="-158.22" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43894"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-158.22" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-164.15" y="-158.22" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-76.4" y="-158.22" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-93.95" y="-158.22" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-58.85" y="-158.22" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-181.7" y="-175.77" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-199.25" y="-175.77" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43894"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-146.6" y="-175.77" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-164.15" y="-175.77" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-111.5" y="-175.77" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-76.4" y="-175.77" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-93.95" y="-175.77" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-58.85" y="-175.77" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-193.32" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-181.7" y="-193.32" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-199.25" y="-193.32" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43894"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-164.15" y="-193.32" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-76.4" y="-193.32" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-93.95" y="-193.32" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-58.85" y="-193.32" width="17.561" height="17.561" fill="none"
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
+            g.innerHTML += square_inv('X', 'A', "none");
+
+            g.innerHTML += square_inv('M', 'U', "none");
+            g.innerHTML += square_inv('P', 'U', "none");
+            g.innerHTML += square_inv('Z', 'U', tamnua_);
+
+            g.innerHTML += square_inv('C', 'U', "none");
+            g.innerHTML += square_inv('L', 'U', "none");
+            g.innerHTML += square_inv('N', 'U', "none");
+            g.innerHTML += square_inv('K', 'U', "none");
+            g.innerHTML += square_inv('M', 'O', "none");
+            g.innerHTML += square_inv('P', 'O', "none");
+            g.innerHTML += square_inv('X', 'O', tamnua_);
+            g.innerHTML += square_inv('C', 'O', tamnua_);
+            g.innerHTML += square_inv('T', 'O', tamnua_);
+            g.innerHTML += square_inv('L', 'O', "none");
+            g.innerHTML += square_inv('N', 'O', tamnua_);
+            g.innerHTML += square_inv('K', 'O', "none");
+            g.innerHTML += square_inv('Z', 'Y', tamnua_);
+            g.innerHTML += square_inv('M', 'Y', "none");
+            g.innerHTML += square_inv('P', 'Y', "none");
+            g.innerHTML += square_inv('C', 'Y', "none");
+            g.innerHTML += square_inv('L', 'Y', "none");
+            g.innerHTML += square_inv('N', 'Y', "none");
+            g.innerHTML += square_inv('K', 'Y', "none");
+           
             g.innerHTML += piece_path('赤', '兵', 'L', 'AI', 0);
             g.innerHTML += `<rect x="58.839" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
                 stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
