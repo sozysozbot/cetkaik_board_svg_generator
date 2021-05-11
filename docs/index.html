@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        #download {
+            margin: auto;
+            width: 288px;
+        }
+    </style>
+    <title>cerke board svg generator</title>
+
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div style="display: flex">
+        <textarea id="board_state" style="margin: 0 20px 0 0" onblur="render()">
+赤,兵,M,I,180
+黒,兵,P,I,180
+赤,船,Z,I,180
+赤,兵,X,I,180
+黒,兵,C,I,180
+赤,兵,T,I,180
+赤,兵,L,I,180
+黒,兵,N,I,180
+黒,兵,K,I,180
+赤,弓,L,E,180
+赤,巫,K,E,180
+黒,弓,M,E,180
+黒,虎,X,E,180
+黒,巫,P,E,180
+黒,車,N,A,180
+赤,馬,M,A,180
+赤,筆,P,A,180
+赤,車,C,A,180
+黒,馬,L,A,180
+黒,筆,K,A,180
+黒,将,T,A,180
+赤,王,Z,A,180
+赤,将,X,A,180
+    
+ 
+赤,兵,L,AI,0
+黒,兵,K,AI,0
+黒,船,Z,AI,0
+赤,兵,T,AI,0
+黒,兵,N,AI,0
+赤,兵,X,AI,0
+赤,兵,M,AI,0
+黒,兵,C,AI,0
+黒,兵,P,AI,0
+赤,弓,M,AU,0
+赤,虎,X,AU,0
+赤,巫,P,AU,0
+黒,弓,L,AU,0
+黒,虎,T,AU,0
+黒,巫,K,AU,0
+黒,車,C,IA,0
+赤,馬,L,IA,0
+赤,筆,K,IA,0
+赤,車,N,IA,0
+黒,馬,M,IA,0
+黒,筆,P,IA,0
+黒,将,X,IA,0
+黒,王,Z,IA,0
+赤,将,T,IA,0
+</textarea>
+        <div id="res">
+            <svg id="result" width="173.36mm" height="168.04mm" version="1.1" viewBox="0 0 173.36 168.04"
+                xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            </svg>
+        </div>
+    </div>
+    <ul>
+        <li>
+            <input type="checkbox" id="coordinate" checked onchange="render()"><label for="coordinate">座標</label>
+        </li>
+        <li>
+            <input type="checkbox" id="tamnua_background" checked
+                onchange="document.getElementById('water_edge').checked = this.checked; render()"><label
+                for="tamnua_background">皇水背景</label>
+            <input type="checkbox" id="water_edge" checked onchange="render()"><label for="water_edge">水端マーク</label>
+        </li>
+        <li>
+            <input type="checkbox" id="tamhue_background" checked
+                onchange="document.getElementById('tamhue_slash').checked = this.checked; render()"><label
+                for="tamhue_background">皇処背景</label>
+            <input type="checkbox" id="tamhue_slash" checked onchange="render()"><label for="tamhue_slash">皇処斜線</label>
+        </li>
+        <li>
+            <input type="radio" name="tamzo_color" id="tamzo_green" onchange="render()" checked><label
+                for="tamzo_green">皇山は緑</label>
+            <input type="radio" name="tamzo_color" id="tamzo_orange" onchange="render()"><label
+                for="tamzo_orange">皇山はオレンジ</label>
+            <input type="radio" name="tamzo_color" id="tamzo_blue" onchange="render()"><label
+                for="tamzo_blue">皇山は水色</label>
+            <input type="radio" name="tamzo_color" id="tamzo_white" onchange="render()"><label
+                for="tamzo_white">皇山は白</label>
+        </li>
+    </ul>
+    <div id="download"></div>
+    <script>
+        render();
+    </script>
+</body>
