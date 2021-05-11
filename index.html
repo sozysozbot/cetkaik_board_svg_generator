@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
     <meta charset="UTF-8">
     <style type="text/css">
@@ -7,7 +6,6 @@
             margin: auto;
             width: 90%;
         }
-
         #download {
             margin: auto;
             width: 288px;
@@ -15,9 +13,7 @@
     </style>
     <title>cerke board svg generator</title>
 </head>
-
 <body>
-
     <div id="res">
         <svg id="result" width="173.36mm" height="168.04mm" version="1.1" viewBox="0 0 173.36 168.04"
             xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
@@ -38,22 +34,18 @@
             <input type="checkbox" id="tamhue_background" checked
                 onchange="document.getElementById('tamhue_slash').checked = this.checked; render()"><label
                 for="tamhue_background">皇処背景</label>
-
             <input type="checkbox" id="tamhue_slash" checked onchange="render()"><label for="tamhue_slash">皇処斜線</label>
         </li>
     </ul>
     <div id="download"></div>
-
     <script>
         function piece_path(color, profession, column, row, degree) {
             const TOP = {
                 A: 0, E: 1, I: 2, U: 3, O: 4, Y: 5, AI: 6, AU: 7, IA: 8
             }[row];
-
             const LEFT = {
                 P: 8, M: 7, C: 6, X: 5, Z: 4, T: 3, N: 2, L: 1, K: 0
             }[column];
-
             const coloring = { 黒: '', 赤: 'fill="#d43c00" ' }[color]
             if (profession === '兵' && degree === 180) {
                 const x = LEFT * 17.55 + 50.798;
@@ -141,295 +133,121 @@
         function main_g({ water_edge, coordinate, tamhue_background, tamnua_background, tamhue_slash }) {
             const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             g.setAttribute("transform", "translate(-41.069 -78.153)");
-
             const tamnua = tamnua_background ? ' fill="#87aade"' : ' fill="none"';
             const tamnua_ = tamnua_background ? '#87aade' : 'none';
-            g.innerHTML = `<rect x="111.49" y="193.31" width="17.561" height="17.561"${tamnua} stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-140.67" width="17.561" height="17.561"${tamnua}
-                stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".439"
-                style="paint-order:fill markers stroke" />`;
             g.innerHTML += `<rect transform="scale(-1)" x="-129.05" y="-175.77" width="17.561" height="17.561" fill="#005242"
                 stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-opacity=".94118"
                 stroke-width=".43902" style="paint-order:stroke fill markers" />`;
-
             const tamhue = tamhue_background ? ' fill="#ffb380"' : ' fill="none"';
-
             const tamhue_ = tamhue_background ? '#ffb380' : 'none';
-
             function square_inv(column, row, fill) {
                 const LEFT = {
                     P: 8, M: 7, C: 6, X: 5, Z: 4, T: 3, N: 2, L: 1, K: 0
                 }[column];
                 const x = -17.55 * LEFT - 58.85;
-
                 const TOP = {
                     A: 0, E: 1, I: 2, U: 3, O: 4, Y: 5, AI: 6, AU: 7, IA: 8
                 }[row];
-
                 const y = -17.55 * TOP - 105.57;
-
                 return `<rect transform="scale(-1)" x="${x}" y="${y}" width="17.561" height="17.561" fill="${fill}" stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902" style="paint-order:fill markers stroke" />`;
             }
-
-            g.innerHTML += square_inv('C', 'I', tamhue_);
-            g.innerHTML += square_inv('N', 'I', tamhue_);
-            g.innerHTML += square_inv('X', 'U', tamhue_);
-            g.innerHTML += square_inv('T', 'U', tamhue_);
-            g.innerHTML += square_inv('X', 'Y', tamhue_);
-            g.innerHTML += square_inv('T', 'Y', tamhue_);
-
-            g.innerHTML += `<rect x="76.389" y="193.31" width="17.561" height="17.561"${tamhue} stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += `<rect x="146.59" y="193.31" width="17.561" height="17.561"${tamhue} stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:fill markers stroke" />`;
-            g.innerHTML += square_inv('X', 'I', "none");
-
+            for (let i = 0; i < 9; i++) {
+                const column = ['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'][i]
+                for (let j = 0; j < 9; j++) {
+                    const row = [
+                        'A', 'E', 'I', 'U', 'O', 'Y', 'AI', 'AU', 'IA'
+                    ][j];
+                    g.innerHTML += square_inv(
+                        column, row,
+                        ["ZI", "ZU", "NO", "TO", "XO", "CO", "ZY", "ZAI"].includes(`${column}${row}`) ? tamnua_ :
+                            ["NI", "CI", "TU", "XU", "TY", "XY", "NAI", "CAI"].includes(`${column}${row}`) ? tamhue_ : "none"
+                    );
+                }
+            }
             if (tamhue_slash) {
                 // NI から CAI に向かっての皇処斜線
                 g.innerHTML += `<path d="m76.389 123.12 87.762 87.74" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // CI から NAI に向かっての皇処斜線
                 g.innerHTML += `<path d="m164.14 123.12-87.74 87.74" fill="none" stroke="#000" stroke-width=".5" />`;
             }
-
-
             g.innerHTML += `<g transform="rotate(90 102.16 34.61)">
                 <path d="m232.81 9.5251c0.15851 0.41367 0.38236 1.8187 0.59014 3.5197-0.62394 0.29356-1.2452 0.55131-1.8319 0.79737 0.084 0.13114 0.24005 0.26019 0.37931 0.42271l1.5487-0.41393c0.0491 0.4391 0.0953 0.89224 0.13953 1.3493-0.67516 0.15169-1.3508 0.29371-2.0102 0.42788-0.44083-0.97325-1.0421-2.116-1.8423-3.2148 0 0 0.3102 1.5867 0.61753 3.4577-1.7512 0.3395-3.0928 0.56844-3.0928 0.56844 0.36242 0.3914 0.421 0.42637 0.99322 1.1622 0.76951-0.215 1.5296-0.41433 2.2774-0.60306 0.16901 1.1147 0.3188 2.2424 0.38499 3.1409 1.0435-1.1991 1.5746-2.1224 1.5746-2.1224s-0.16184-0.55672-0.48473-1.3803c0.57861-0.137 1.1312-0.25993 1.6805-0.38085 0.0643 0.76257 0.11689 1.5136 0.15297 2.2164l-1.6237 0.66714-0.0408 0.35812 1.6986-0.21084c0.0418 1.2739 0.0131 2.2949-0.13384 2.7275l1.0728 1.4588s0.015-2.0868 0.0382-4.3072l2.8376-0.35191-0.85679-0.7214c0.28104-0.34938 0.6208-1.4919 0.91467-2.6577 2.4069-0.441 3.9682-0.64957 3.9682-0.64957l-2.0624-1.7317-1.5188 0.83561c-7e-3 0.0032-0.0164 0.0066-0.0233 0.0098 0.17268-0.77993 0.29042-1.3705 0.29042-1.3705l-1.7766-1.6552c-0.51018 0.50872-1.0719 0.93281-1.6557 1.3002 0.0156-0.5757 0.0322-1.113 0.0507-1.5689-0.65678-0.34858-1.1875-0.48015-2.2562-1.0795zm3.699 3.5212c0.0239 0.49955 0.0325 0.97521 0.0284 1.4211-0.48266 0.14112-1.0147 0.28223-1.5792 0.42116 9e-3 -0.49693 0.0172-0.96425 0.0274-1.4351zm-0.017 2.6381c-0.047 0.77619-0.12072 1.4291-0.19534 1.9177l-0.0951-0.0801-1.2904 0.5302c8e-3 -0.67281 0.0198-1.3604 0.0305-2.0541 0.54303-0.11336 1.054-0.21706 1.5503-0.31368z" fill="#fff" />
             </g>
             `;
             g.innerHTML += piece_path('赤', '兵', 'M', 'I', 180);
-            g.innerHTML += square_inv('M', 'I', "none");
-
             g.innerHTML += piece_path('黒', '兵', 'P', 'I', 180);
-            g.innerHTML += square_inv('P', 'I', "none");
-
             g.innerHTML += piece_path('赤', '船', 'Z', 'I', 180);
             g.innerHTML += piece_path('赤', '兵', 'X', 'I', 180);
             g.innerHTML += piece_path('黒', '兵', 'C', 'I', 180);
-
             g.innerHTML += piece_path('赤', '兵', 'T', 'I', 180);
-            g.innerHTML += square_inv('T', 'I', "none");
-
             g.innerHTML += piece_path('赤', '兵', 'L', 'I', 180);
-            g.innerHTML += square_inv('L', 'I', "none");
-
             g.innerHTML += piece_path('黒', '兵', 'N', 'I', 180);
-
             g.innerHTML += piece_path('黒', '兵', 'K', 'I', 180);
-            g.innerHTML += square_inv('K', 'I', "none");
-
             g.innerHTML += piece_path('赤', '弓', 'L', 'E', 180);
-            g.innerHTML += square_inv('L', 'E', "none");
-
-            g.innerHTML += square_inv('T', 'E', "none");
-
             g.innerHTML += piece_path('赤', '巫', 'K', 'E', 180);
-            g.innerHTML += square_inv('K', 'E', "none");
-
             g.innerHTML += piece_path('黒', '弓', 'M', 'E', 180);
-            g.innerHTML += square_inv('M', 'E', "none");
-
             g.innerHTML += piece_path('黒', '虎', 'X', 'E', 180);
-            g.innerHTML += square_inv('X', 'E', "none");
-
             g.innerHTML += piece_path('黒', '巫', 'P', 'E', 180);
-            g.innerHTML += square_inv('P', 'E', "none");
-
-            g.innerHTML += square_inv('C', 'E', "none");
-            g.innerHTML += square_inv('Z', 'E', "none");
-            g.innerHTML += square_inv('N', 'E', "none");
-
             g.innerHTML += piece_path('黒', '車', 'N', 'A', 180);
-            g.innerHTML += square_inv('N', 'A', "none");
-
             g.innerHTML += piece_path('赤', '馬', 'M', 'A', 180);
-            g.innerHTML += square_inv('M', 'A', "none");
-
             g.innerHTML += piece_path('赤', '筆', 'P', 'A', 180);
-            g.innerHTML += square_inv('P', 'A', "none");
-
             g.innerHTML += piece_path('赤', '車', 'C', 'A', 180);
-            g.innerHTML += square_inv('C', 'A', "none");
-
             g.innerHTML += piece_path('黒', '馬', 'L', 'A', 180);
-            g.innerHTML += square_inv('L', 'A', "none");
-
-            g.innerHTML += square_inv('K', 'A', "none");
             g.innerHTML += piece_path('黒', '筆', 'K', 'A', 180);
-
             g.innerHTML += piece_path('黒', '将', 'T', 'A', 180);
-            g.innerHTML += square_inv('T', 'A', "none");
-
             g.innerHTML += piece_path('赤', '王', 'Z', 'A', 180);
-            g.innerHTML += square_inv('Z', 'A', "none");
             g.innerHTML += piece_path('赤', '将', 'X', 'A', 180);
-            g.innerHTML += square_inv('X', 'A', "none");
-
-            g.innerHTML += square_inv('M', 'U', "none");
-            g.innerHTML += square_inv('P', 'U', "none");
-            g.innerHTML += square_inv('Z', 'U', tamnua_);
-
-            g.innerHTML += square_inv('C', 'U', "none");
-            g.innerHTML += square_inv('L', 'U', "none");
-            g.innerHTML += square_inv('N', 'U', "none");
-            g.innerHTML += square_inv('K', 'U', "none");
-            g.innerHTML += square_inv('M', 'O', "none");
-            g.innerHTML += square_inv('P', 'O', "none");
-            g.innerHTML += square_inv('X', 'O', tamnua_);
-            g.innerHTML += square_inv('C', 'O', tamnua_);
-            g.innerHTML += square_inv('T', 'O', tamnua_);
-            g.innerHTML += square_inv('L', 'O', "none");
-            g.innerHTML += square_inv('N', 'O', tamnua_);
-            g.innerHTML += square_inv('K', 'O', "none");
-            g.innerHTML += square_inv('Z', 'Y', tamnua_);
-            g.innerHTML += square_inv('M', 'Y', "none");
-            g.innerHTML += square_inv('P', 'Y', "none");
-            g.innerHTML += square_inv('C', 'Y', "none");
-            g.innerHTML += square_inv('L', 'Y', "none");
-            g.innerHTML += square_inv('N', 'Y', "none");
-            g.innerHTML += square_inv('K', 'Y', "none");
-           
             g.innerHTML += piece_path('赤', '兵', 'L', 'AI', 0);
-            g.innerHTML += `<rect x="58.839" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '兵', 'K', 'AI', 0);
-            g.innerHTML += `<rect x="41.289" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43894"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '船', 'Z', 'AI', 0);
             g.innerHTML += piece_path('赤', '兵', 'T', 'AI', 0);
-            g.innerHTML += `<rect x="93.939" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '兵', 'N', 'AI', 0);
             g.innerHTML += piece_path('赤', '兵', 'X', 'AI', 0);
-            g.innerHTML += `<rect x="129.04" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('赤', '兵', 'M', 'AI', 0);
-            g.innerHTML += `<rect x="164.14" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '兵', 'C', 'AI', 0);
             g.innerHTML += piece_path('黒', '兵', 'P', 'AI', 0);
-            g.innerHTML += `<rect x="181.69" y="193.31" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('赤', '弓', 'M', 'AU', 0);
-            g.innerHTML += `<rect x="164.14" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('赤', '虎', 'X', 'AU', 0);
-            g.innerHTML += `<rect x="129.04" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('赤', '巫', 'P', 'AU', 0);
-            g.innerHTML += `<rect x="181.69" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-
             g.innerHTML += piece_path('黒', '弓', 'L', 'AU', 0);
-            g.innerHTML += `<rect x="58.839" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '虎', 'T', 'AU', 0);
-            g.innerHTML += `<rect x="93.939" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '巫', 'K', 'AU', 0);
-            g.innerHTML += `<rect x="41.289" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect x="76.389" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect x="111.49" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect x="146.59" y="210.86" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '車', 'C', 'IA', 0);
-            g.innerHTML += `<rect x="146.59" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-
             g.innerHTML += piece_path('赤', '馬', 'L', 'IA', 0);
-            g.innerHTML += `<rect x="58.839" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('赤', '筆', 'K', 'IA', 0);
-            g.innerHTML += `<rect x="41.289" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-
             g.innerHTML += piece_path('赤', '車', 'N', 'IA', 0);
-            g.innerHTML += `<rect x="76.389" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '馬', 'M', 'IA', 0);
-            g.innerHTML += `<rect x="164.14" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-            g.innerHTML += `<rect x="181.69" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '筆', 'P', 'IA', 0);
             g.innerHTML += piece_path('黒', '将', 'X', 'IA', 0);
-            g.innerHTML += `<rect x="129.04" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('黒', '王', 'Z', 'IA', 0);
-            g.innerHTML += `<rect x="111.49" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
             g.innerHTML += piece_path('赤', '将', 'T', 'IA', 0);
-            g.innerHTML += `<rect x="93.939" y="228.41" width="17.561" height="17.561" fill="none" stroke="#000"
-                stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902"
-                style="paint-order:stroke fill markers" />`;
-
+     
             if (water_edge) {
                 // ZAI の水端マーク1
                 g.innerHTML += `<path d="m128.05 206.49v3.449h-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // ZAI の水端マーク2
                 g.innerHTML += `<path d="m115.94 209.94h-3.449v-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // ZI の水端マーク1
                 g.innerHTML += `<path d="m112.49 127.55v-3.449h3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // ZI の水端マーク2
                 g.innerHTML += `<path d="m124.6 124.1h3.449v3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // NO の水端マーク1
                 g.innerHTML += `<path d="m80.799 174.8h-3.449v-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // NO の水端マーク2
                 g.innerHTML += `<path d="m77.35 162.69v-3.449h3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // CO の水端マーク1
                 g.innerHTML += `<path d="m159.74 159.24h3.449v3.449" fill="none" stroke="#000" stroke-width=".5" />`;
-
                 // CO の水端マーク2
                 g.innerHTML += `<path d="m163.19 171.35v3.449h-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
             }
-
             g.innerHTML += piece_path('赤', '虎', 'T', 'E', 180);
-
             if (coordinate) {
                 g.innerHTML += `<text x="47.609035" y="83.719559" fill="#000000" font-family="'Courier New'" font-size="9.1718px" font-weight="bold" letter-spacing="11.973px" stroke-width=".2293" word-spacing="0px"  style="line-height:1.25" xml:space="preserve"> <tspan x="47.609035" y="83.719559" font-family="'Courier New'" font-weight="bold" letter-spacing="11.973px" stroke-width=".2293">KLNTZXCMP</tspan></text>`;
                 g.innerHTML += `<text x="203.21265" y="100.02361" fill="#000000" font-family="'Courier New'" font-size="9.1718px" font-weight="bold" letter-spacing="0px" stroke-width=".2293" word-spacing="0px" style="line-height:1.9" xml:space="preserve">
                 <tspan x="203.21265" y="100.02361" style="line-height:1.9">A</tspan> <tspan x="203.21265" y="117.45004" style="line-height:1.9">E</tspan> <tspan x="203.21265" y="134.87645" style="line-height:1.9">I</tspan> <tspan x="203.21265" y="152.30287" style="line-height:1.9">U</tspan> <tspan x="203.21265" y="169.72929" style="line-height:1.9">O</tspan> <tspan x="203.21265" y="187.15572" style="line-height:1.9">Y</tspan> <tspan x="203.21265" y="204.58212" style="line-height:1.9">AI</tspan> <tspan x="203.21265" y="222.00854" style="line-height:1.9">AU</tspan> <tspan x="203.21265" y="239.43497" style="line-height:1.9">IA</tspan></text>`;
             }
-
             return g;
         }
-
         function render() {
             const g = main_g({
                 water_edge: document.getElementById("water_edge").checked,
@@ -442,16 +260,12 @@
             document.getElementById("result").appendChild(g);
             create_download();
         }
-
         render();
-
         function create_download() {
             var svg_source = document.getElementById('res').innerHTML;
             var svg_data_uri = 'data:image/svg+xml;base64,' + btoa(svg_source);
             document.getElementById("download").innerHTML = "<a href='" + svg_data_uri + `' download><img class="btn" src="download.png" width="80"></a>`;
         }
-
         create_download();
     </script>
-
 </body>
