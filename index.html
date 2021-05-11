@@ -174,8 +174,8 @@
                         switch (tamzo_color) {
                             case "white": g.innerHTML += square_inv(column, row, "none"); break;
                             case "green": g.innerHTML += square_inv(column, row, "#005242"); break;
-                            case "orange": g.innerHTML += square_inv(column, row, tamhue_); break;
-                            case "blue": g.innerHTML += square_inv(column, row, tamnua_); break;
+                            case "orange": g.innerHTML += square_inv(column, row, '#ffb380'); break;
+                            case "blue": g.innerHTML += square_inv(column, row, '#87aade'); break;
                         }
                     } else {
                         g.innerHTML += square_inv(column, row, "none");
@@ -279,12 +279,13 @@
             document.getElementById("result").appendChild(g);
             create_download();
         }
-        render();
+        
         function create_download() {
             var svg_source = document.getElementById('res').innerHTML;
             var svg_data_uri = 'data:image/svg+xml;base64,' + btoa(svg_source);
             document.getElementById("download").innerHTML = "<a href='" + svg_data_uri + `' download><img class="btn" src="download.png" width="80"></a>`;
         }
-        create_download();
+
+        render();
     </script>
 </body>
