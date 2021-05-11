@@ -17,11 +17,64 @@
 </head>
 
 <body>
-    <div id="res">
-        <svg id="result" width="173.36mm" height="168.04mm" version="1.1" viewBox="0 0 173.36 168.04"
-            xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
-            xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-        </svg>
+    <div style="display: flex">
+        <textarea id="board_state" style="margin: 0 20px 0 0" onblur="render()">
+赤,兵,M,I,180
+黒,兵,P,I,180
+赤,船,Z,I,180
+赤,兵,X,I,180
+黒,兵,C,I,180
+赤,兵,T,I,180
+赤,兵,L,I,180
+黒,兵,N,I,180
+黒,兵,K,I,180
+赤,弓,L,E,180
+赤,巫,K,E,180
+黒,弓,M,E,180
+黒,虎,X,E,180
+黒,巫,P,E,180
+黒,車,N,A,180
+赤,馬,M,A,180
+赤,筆,P,A,180
+赤,車,C,A,180
+黒,馬,L,A,180
+黒,筆,K,A,180
+黒,将,T,A,180
+赤,王,Z,A,180
+赤,将,X,A,180
+    
+ 
+赤,兵,L,AI,0
+黒,兵,K,AI,0
+黒,船,Z,AI,0
+赤,兵,T,AI,0
+黒,兵,N,AI,0
+赤,兵,X,AI,0
+赤,兵,M,AI,0
+黒,兵,C,AI,0
+黒,兵,P,AI,0
+赤,弓,M,AU,0
+赤,虎,X,AU,0
+赤,巫,P,AU,0
+黒,弓,L,AU,0
+黒,虎,T,AU,0
+黒,巫,K,AU,0
+黒,車,C,IA,0
+赤,馬,L,IA,0
+赤,筆,K,IA,0
+赤,車,N,IA,0
+黒,馬,M,IA,0
+黒,筆,P,IA,0
+黒,将,X,IA,0
+黒,王,Z,IA,0
+赤,将,T,IA,0
+</textarea>
+        <div id="res">
+            <svg id="result" width="173.36mm" height="168.04mm" version="1.1" viewBox="0 0 173.36 168.04"
+                xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            </svg>
+        </div>
     </div>
     <ul>
         <li>
@@ -143,7 +196,15 @@
                 return `<path d="m${x} ${y}s2.5506 2.2958 2.5931 2.5084c0.0425 0.21256 1.403-1.6154 1.403-1.6154s-1.743-0.63791-3.9961-0.89297zm4.9718 2.3482s-2.7253 1.8258-5.6183 2.3864l0.59066 0.35036 2.1523-0.43563c-0.0588 0.95698-0.14901 1.7997-0.27905 2.529-0.79513 0.32916-1.6852 0.62936-2.5921 0.80511l0.59066 0.35037 1.8376-0.37207c-0.74569 3.0997-2.3165 4.1333-4.8845 5.642 3.7556-0.49344 5.5959-3.7207 6.4337-5.9552l3.4334-0.69505-1.7927-1.3565s-0.47125 0.3101-1.2082 0.70951c0.13355-0.50099 0.19069-0.82268 0.19069-0.82268l-1.2439-0.93276 4.1822-0.84595zm-0.48679 6.983s2.3382 1.5304 3.5073 3.5496c1.0415-0.55265 2.0402-0.91364 2.0402-0.91364s-1.7002-2.4022-5.5475-2.636z" ${coloring}/>`;
             }
         }
-        function main_g({ water_edge, coordinate, tamhue_background, tamnua_background, tamhue_slash, tamzo_color }) {
+        function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */,
+            {
+                water_edge, /* : boolean */
+                coordinate, /* : boolean */
+                tamhue_background, /* : boolean */
+                tamnua_background, /* : boolean */
+                tamhue_slash, /* : boolean */
+                tamzo_color, /* : "orange" | "white" | "green" | "blue" | null */
+            }) {
             const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             g.setAttribute("transform", "translate(-41.069 -78.153)");
             const tamnua_ = tamnua_background ? '#87aade' : 'none';
@@ -192,53 +253,11 @@
                 <path d="m232.81 9.5251c0.15851 0.41367 0.38236 1.8187 0.59014 3.5197-0.62394 0.29356-1.2452 0.55131-1.8319 0.79737 0.084 0.13114 0.24005 0.26019 0.37931 0.42271l1.5487-0.41393c0.0491 0.4391 0.0953 0.89224 0.13953 1.3493-0.67516 0.15169-1.3508 0.29371-2.0102 0.42788-0.44083-0.97325-1.0421-2.116-1.8423-3.2148 0 0 0.3102 1.5867 0.61753 3.4577-1.7512 0.3395-3.0928 0.56844-3.0928 0.56844 0.36242 0.3914 0.421 0.42637 0.99322 1.1622 0.76951-0.215 1.5296-0.41433 2.2774-0.60306 0.16901 1.1147 0.3188 2.2424 0.38499 3.1409 1.0435-1.1991 1.5746-2.1224 1.5746-2.1224s-0.16184-0.55672-0.48473-1.3803c0.57861-0.137 1.1312-0.25993 1.6805-0.38085 0.0643 0.76257 0.11689 1.5136 0.15297 2.2164l-1.6237 0.66714-0.0408 0.35812 1.6986-0.21084c0.0418 1.2739 0.0131 2.2949-0.13384 2.7275l1.0728 1.4588s0.015-2.0868 0.0382-4.3072l2.8376-0.35191-0.85679-0.7214c0.28104-0.34938 0.6208-1.4919 0.91467-2.6577 2.4069-0.441 3.9682-0.64957 3.9682-0.64957l-2.0624-1.7317-1.5188 0.83561c-7e-3 0.0032-0.0164 0.0066-0.0233 0.0098 0.17268-0.77993 0.29042-1.3705 0.29042-1.3705l-1.7766-1.6552c-0.51018 0.50872-1.0719 0.93281-1.6557 1.3002 0.0156-0.5757 0.0322-1.113 0.0507-1.5689-0.65678-0.34858-1.1875-0.48015-2.2562-1.0795zm3.699 3.5212c0.0239 0.49955 0.0325 0.97521 0.0284 1.4211-0.48266 0.14112-1.0147 0.28223-1.5792 0.42116 9e-3 -0.49693 0.0172-0.96425 0.0274-1.4351zm-0.017 2.6381c-0.047 0.77619-0.12072 1.4291-0.19534 1.9177l-0.0951-0.0801-1.2904 0.5302c8e-3 -0.67281 0.0198-1.3604 0.0305-2.0541 0.54303-0.11336 1.054-0.21706 1.5503-0.31368z" fill="#fff" />
             </g>
             `;
-            g.innerHTML += piece_path('赤', '兵', 'M', 'I', 180);
-            g.innerHTML += piece_path('黒', '兵', 'P', 'I', 180);
-            g.innerHTML += piece_path('赤', '船', 'Z', 'I', 180);
-            g.innerHTML += piece_path('赤', '兵', 'X', 'I', 180);
-            g.innerHTML += piece_path('黒', '兵', 'C', 'I', 180);
-            g.innerHTML += piece_path('赤', '兵', 'T', 'I', 180);
-            g.innerHTML += piece_path('赤', '兵', 'L', 'I', 180);
-            g.innerHTML += piece_path('黒', '兵', 'N', 'I', 180);
-            g.innerHTML += piece_path('黒', '兵', 'K', 'I', 180);
-            g.innerHTML += piece_path('赤', '弓', 'L', 'E', 180);
-            g.innerHTML += piece_path('赤', '巫', 'K', 'E', 180);
-            g.innerHTML += piece_path('黒', '弓', 'M', 'E', 180);
-            g.innerHTML += piece_path('黒', '虎', 'X', 'E', 180);
-            g.innerHTML += piece_path('黒', '巫', 'P', 'E', 180);
-            g.innerHTML += piece_path('黒', '車', 'N', 'A', 180);
-            g.innerHTML += piece_path('赤', '馬', 'M', 'A', 180);
-            g.innerHTML += piece_path('赤', '筆', 'P', 'A', 180);
-            g.innerHTML += piece_path('赤', '車', 'C', 'A', 180);
-            g.innerHTML += piece_path('黒', '馬', 'L', 'A', 180);
-            g.innerHTML += piece_path('黒', '筆', 'K', 'A', 180);
-            g.innerHTML += piece_path('黒', '将', 'T', 'A', 180);
-            g.innerHTML += piece_path('赤', '王', 'Z', 'A', 180);
-            g.innerHTML += piece_path('赤', '将', 'X', 'A', 180);
-            g.innerHTML += piece_path('赤', '兵', 'L', 'AI', 0);
-            g.innerHTML += piece_path('黒', '兵', 'K', 'AI', 0);
-            g.innerHTML += piece_path('黒', '船', 'Z', 'AI', 0);
-            g.innerHTML += piece_path('赤', '兵', 'T', 'AI', 0);
-            g.innerHTML += piece_path('黒', '兵', 'N', 'AI', 0);
-            g.innerHTML += piece_path('赤', '兵', 'X', 'AI', 0);
-            g.innerHTML += piece_path('赤', '兵', 'M', 'AI', 0);
-            g.innerHTML += piece_path('黒', '兵', 'C', 'AI', 0);
-            g.innerHTML += piece_path('黒', '兵', 'P', 'AI', 0);
-            g.innerHTML += piece_path('赤', '弓', 'M', 'AU', 0);
-            g.innerHTML += piece_path('赤', '虎', 'X', 'AU', 0);
-            g.innerHTML += piece_path('赤', '巫', 'P', 'AU', 0);
-            g.innerHTML += piece_path('黒', '弓', 'L', 'AU', 0);
-            g.innerHTML += piece_path('黒', '虎', 'T', 'AU', 0);
-            g.innerHTML += piece_path('黒', '巫', 'K', 'AU', 0);
-            g.innerHTML += piece_path('黒', '車', 'C', 'IA', 0);
-            g.innerHTML += piece_path('赤', '馬', 'L', 'IA', 0);
-            g.innerHTML += piece_path('赤', '筆', 'K', 'IA', 0);
-            g.innerHTML += piece_path('赤', '車', 'N', 'IA', 0);
-            g.innerHTML += piece_path('黒', '馬', 'M', 'IA', 0);
-            g.innerHTML += piece_path('黒', '筆', 'P', 'IA', 0);
-            g.innerHTML += piece_path('黒', '将', 'X', 'IA', 0);
-            g.innerHTML += piece_path('黒', '王', 'Z', 'IA', 0);
-            g.innerHTML += piece_path('赤', '将', 'T', 'IA', 0);
+
+            for (let i = 0; i < input.length; i++) {
+                console.log(input[i]);
+                g.innerHTML += piece_path(...(input[i]));
+            }
 
             if (water_edge) {
                 // ZAI の水端マーク1
@@ -267,7 +286,28 @@
             return g;
         }
         function render() {
-            const g = main_g({
+            const input /* : Array<[Color, Profession, Column, Row, Degree]> */ = document.getElementById("board_state").value
+                .split("\n")
+                .filter(line => line.trim() !== "")
+                .map(line => {
+                    const [color, profession, column, row, degree] = line.split(",").map(e => e.trim());
+                    const degree_ = Number(degree);
+
+                    if (!["赤", "黒"].includes(color)) {
+                        alert(`invalid color ${color}`)
+                    }
+
+                    if (!["王", "将", "兵", "弓", "馬", "車", "巫", "虎", "筆", "船"].includes(profession)) {
+                        alert(`invalid profession ${profession}`)
+                    }
+
+                    if (!['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'].includes(column)) {
+                        alert(`invalid column ${column}`)
+                    }
+
+                    return [color, profession, column, row, degree_]
+                });
+            const g = main_g(input, {
                 water_edge: document.getElementById("water_edge").checked,
                 coordinate: document.getElementById("coordinate").checked,
                 tamhue_background: document.getElementById("tamhue_background").checked,
@@ -279,7 +319,7 @@
             document.getElementById("result").appendChild(g);
             create_download();
         }
-        
+
         function create_download() {
             var svg_source = document.getElementById('res').innerHTML;
             var svg_data_uri = 'data:image/svg+xml;base64,' + btoa(svg_source);
