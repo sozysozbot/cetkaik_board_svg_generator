@@ -191,7 +191,6 @@ function main_g(input, o) {
         // CO の水端マーク2
         g.innerHTML += `<path d="m163.19 171.35v3.449h-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
     }
-    g.innerHTML += piece_path('赤', '虎', 'T', 'E', 180);
     if (o.coordinate) {
         g.innerHTML += `<text x="47.609035" y="83.719559" fill="#000000" font-family="'Courier New'" font-size="9.1718px" font-weight="bold" letter-spacing="11.973px" stroke-width=".2293" word-spacing="0px"  style="line-height:1.25" xml:space="preserve"> <tspan x="47.609035" y="83.719559" font-family="'Courier New'" font-weight="bold" letter-spacing="11.973px" stroke-width=".2293">KLNTZXCMP</tspan></text>`;
         g.innerHTML += `<text x="203.21265" y="100.02361" fill="#000000" font-family="'Courier New'" font-size="9.1718px" font-weight="bold" letter-spacing="0px" stroke-width=".2293" word-spacing="0px" style="line-height:1.9" xml:space="preserve">
