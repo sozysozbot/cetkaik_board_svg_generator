@@ -109,11 +109,11 @@ function piece_path(color, profession, column, row, degree) {
         return `<path d="m${x} ${y}s2.5506 2.2958 2.5931 2.5084c0.0425 0.21256 1.403-1.6154 1.403-1.6154s-1.743-0.63791-3.9961-0.89297zm4.9718 2.3482s-2.7253 1.8258-5.6183 2.3864l0.59066 0.35036 2.1523-0.43563c-0.0588 0.95698-0.14901 1.7997-0.27905 2.529-0.79513 0.32916-1.6852 0.62936-2.5921 0.80511l0.59066 0.35037 1.8376-0.37207c-0.74569 3.0997-2.3165 4.1333-4.8845 5.642 3.7556-0.49344 5.5959-3.7207 6.4337-5.9552l3.4334-0.69505-1.7927-1.3565s-0.47125 0.3101-1.2082 0.70951c0.13355-0.50099 0.19069-0.82268 0.19069-0.82268l-1.2439-0.93276 4.1822-0.84595zm-0.48679 6.983s2.3382 1.5304 3.5073 3.5496c1.0415-0.55265 2.0402-0.91364 2.0402-0.91364s-1.7002-2.4022-5.5475-2.636z" ${coloring}/>`;
     }
 }
-function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */, { water_edge, /* : boolean */ coordinate, /* : boolean */ tamhue_background, /* : boolean */ tamnua_background, /* : boolean */ tamhue_slash, /* : boolean */ tamzo_color, }) {
+function main_g(input, o) {
     const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
     g.setAttribute("transform", "translate(-41.069 -78.153)");
-    const tamnua_ = tamnua_background ? '#87aade' : 'none';
-    const tamhue_ = tamhue_background ? '#ffb380' : 'none';
+    const tamnua_ = o.tamnua_background ? '#87aade' : 'none';
+    const tamhue_ = o.tamhue_background ? '#ffb380' : 'none';
     function square_inv(column, row, fill) {
         const LEFT = {
             P: 8, M: 7, C: 6, X: 5, Z: 4, T: 3, N: 2, L: 1, K: 0
@@ -126,11 +126,13 @@ function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */, {
         return `<rect transform="scale(-1)" x="${x}" y="${y}" width="17.561" height="17.561" fill="${fill}" stroke="#000" stroke-linecap="round" stroke-miterlimit="3.92" stroke-width=".43902" style="paint-order:fill markers stroke" />`;
     }
     for (let i = 0; i < 9; i++) {
-        const column = ['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'][i];
+        const clms = ['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'];
+        const column = clms[i];
         for (let j = 0; j < 9; j++) {
-            const row = [
+            const rows = [
                 'A', 'E', 'I', 'U', 'O', 'Y', 'AI', 'AU', 'IA'
-            ][j];
+            ];
+            const row = rows[j];
             if (["ZI", "ZU", "NO", "TO", "XO", "CO", "ZY", "ZAI"].includes(`${column}${row}`)) {
                 g.innerHTML += square_inv(column, row, tamnua_);
             }
@@ -138,7 +140,7 @@ function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */, {
                 g.innerHTML += square_inv(column, row, tamhue_);
             }
             else if ("ZO" === `${column}${row}`) {
-                switch (tamzo_color) {
+                switch (o.tamzo_color) {
                     case "white":
                         g.innerHTML += square_inv(column, row, "none");
                         break;
@@ -158,7 +160,7 @@ function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */, {
             }
         }
     }
-    if (tamhue_slash) {
+    if (o.tamhue_slash) {
         // NI から CAI に向かっての皇処斜線
         g.innerHTML += `<path d="m76.389 123.12 87.762 87.74" fill="none" stroke="#000" stroke-width=".5" />`;
         // CI から NAI に向かっての皇処斜線
@@ -171,7 +173,7 @@ function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */, {
     for (let i = 0; i < input.length; i++) {
         g.innerHTML += piece_path(...(input[i]));
     }
-    if (water_edge) {
+    if (o.water_edge) {
         // ZAI の水端マーク1
         g.innerHTML += `<path d="m128.05 206.49v3.449h-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
         // ZAI の水端マーク2
@@ -190,30 +192,64 @@ function main_g(input /* : Array<[Color, Profession, Column, Row, Degree]> */, {
         g.innerHTML += `<path d="m163.19 171.35v3.449h-3.449" fill="none" stroke="#000" stroke-width=".5" />`;
     }
     g.innerHTML += piece_path('赤', '虎', 'T', 'E', 180);
-    if (coordinate) {
+    if (o.coordinate) {
         g.innerHTML += `<text x="47.609035" y="83.719559" fill="#000000" font-family="'Courier New'" font-size="9.1718px" font-weight="bold" letter-spacing="11.973px" stroke-width=".2293" word-spacing="0px"  style="line-height:1.25" xml:space="preserve"> <tspan x="47.609035" y="83.719559" font-family="'Courier New'" font-weight="bold" letter-spacing="11.973px" stroke-width=".2293">KLNTZXCMP</tspan></text>`;
         g.innerHTML += `<text x="203.21265" y="100.02361" fill="#000000" font-family="'Courier New'" font-size="9.1718px" font-weight="bold" letter-spacing="0px" stroke-width=".2293" word-spacing="0px" style="line-height:1.9" xml:space="preserve">
         <tspan x="203.21265" y="100.02361" style="line-height:1.9">A</tspan> <tspan x="203.21265" y="117.45004" style="line-height:1.9">E</tspan> <tspan x="203.21265" y="134.87645" style="line-height:1.9">I</tspan> <tspan x="203.21265" y="152.30287" style="line-height:1.9">U</tspan> <tspan x="203.21265" y="169.72929" style="line-height:1.9">O</tspan> <tspan x="203.21265" y="187.15572" style="line-height:1.9">Y</tspan> <tspan x="203.21265" y="204.58212" style="line-height:1.9">AI</tspan> <tspan x="203.21265" y="222.00854" style="line-height:1.9">AU</tspan> <tspan x="203.21265" y="239.43497" style="line-height:1.9">IA</tspan></text>`;
     }
     return g;
 }
+function isColor(color) {
+    return ["赤", "黒"].includes(color);
+}
+function isProfession(profession) {
+    return ["王", "将", "兵", "弓", "馬", "車", "巫", "虎", "筆", "船"].includes(profession);
+}
+function isColumn(column) {
+    return ['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'].includes(column);
+}
+function isRow(row) {
+    return [
+        'A', 'E', 'I', 'U', 'O', 'Y', 'AI', 'AU', 'IA'
+    ].includes(row);
+}
+function isDegree(degree) {
+    return [0, 180].includes(degree);
+}
 function render() {
-    const input /* : Array<[Color, Profession, Column, Row, Degree]> */ = document.getElementById("board_state").value
+    const input = document.getElementById("board_state").value
         .split("\n")
         .filter(line => line.trim() !== "")
-        .map(line => {
+        .flatMap(line => {
         const [color, profession, column, row, degree] = line.split(",").map(e => e.trim());
         const degree_ = Number(degree);
-        if (!["赤", "黒"].includes(color)) {
-            alert(`invalid color ${color}`);
+        if (isColor(color)
+            && isProfession(profession)
+            && isColumn(column)
+            && isRow(row)
+            && isDegree(degree_)) {
+            return [
+                [color, profession, column, row, degree_]
+            ];
         }
-        if (!["王", "将", "兵", "弓", "馬", "車", "巫", "虎", "筆", "船"].includes(profession)) {
-            alert(`invalid profession ${profession}`);
+        let msg = [];
+        if (!isColor(color)) {
+            msg.push(`invalid color ${color}`);
         }
-        if (!['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'].includes(column)) {
-            alert(`invalid column ${column}`);
+        if (!isProfession(profession)) {
+            msg.push(`invalid profession ${profession}`);
         }
-        return [color, profession, column, row, degree_];
+        if (!isColumn(column)) {
+            msg.push(`invalid column ${column}`);
+        }
+        if (!isRow(row)) {
+            msg.push(`invalid row ${row}`);
+        }
+        if (!isDegree(degree_)) {
+            msg.push(`invalid degree_ ${degree_}`);
+        }
+        alert(`${msg.join(", ")} detected. Skipping.`);
+        return [];
     });
     const g = main_g(input, {
         water_edge: document.getElementById("water_edge").checked,
@@ -221,7 +257,10 @@ function render() {
         tamhue_background: document.getElementById("tamhue_background").checked,
         tamnua_background: document.getElementById("tamnua_background").checked,
         tamhue_slash: document.getElementById("tamhue_slash").checked,
-        tamzo_color: document.getElementById("tamzo_green").checked ? "green" : document.getElementById("tamzo_orange").checked ? "orange" : document.getElementById("tamzo_blue").checked ? "blue" : document.getElementById("tamzo_white").checked ? "white" : null
+        tamzo_color: document.getElementById("tamzo_green").checked ? "green" :
+            document.getElementById("tamzo_orange").checked ? "orange" :
+                document.getElementById("tamzo_blue").checked ? "blue" :
+                    document.getElementById("tamzo_white").checked ? "white" : null
     });
     document.getElementById("result").innerHTML = ""; // clear
     document.getElementById("result").appendChild(g);
