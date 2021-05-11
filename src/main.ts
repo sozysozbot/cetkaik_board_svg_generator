@@ -5,7 +5,6 @@ function piece_path(color: Color, profession: Profession, column: Column, row: R
     const LEFT = {
         P: 8, M: 7, C: 6, X: 5, Z: 4, T: 3, N: 2, L: 1, K: 0
     }[column];
-    const coloring = { 黒: '', 赤: 'fill="#d43c00" ' }[color];
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
     path.setAttributeNS('http://www.w3.org/2000/svg', 'fill', { 黒: '', 赤: '#d43c00' }[color]);
