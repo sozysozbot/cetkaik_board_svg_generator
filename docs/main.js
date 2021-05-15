@@ -135,33 +135,43 @@ function main_g(input, o) {
     }
     return g;
 }
+function allElements() {
+    return arr => arr;
+}
+const ALL_COLORS = allElements()(["赤", "黒", "白"]);
 function isColor(color) {
-    return ["赤", "黒", "白"].includes(color);
+    const all_colors = ALL_COLORS;
+    return all_colors.includes(color);
 }
+const ALL_PROFESSIONS = allElements()(["王", "将", "兵", "弓", "馬", "車", "巫", "虎", "筆", "船", "皇"]);
 function isProfession(profession) {
-    return ["王", "将", "兵", "弓", "馬", "車", "巫", "虎", "筆", "船", "皇"].includes(profession);
+    const all_professions = ALL_PROFESSIONS;
+    return all_professions.includes(profession);
 }
+const ALL_COLUMNS = allElements()(['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K']);
 function isColumn(column) {
-    return ['P', 'M', 'C', 'X', 'Z', 'T', 'N', 'L', 'K'].includes(column);
+    const all_columns = ALL_COLUMNS;
+    return all_columns.includes(column);
 }
+const ALL_ROWS = allElements()(['A', 'E', 'I', 'U', 'O', 'Y', 'AI', 'AU', 'IA']);
 function isRow(row) {
-    return [
-        'A', 'E', 'I', 'U', 'O', 'Y', 'AI', 'AU', 'IA'
-    ].includes(row);
+    const all_rows = ALL_ROWS;
+    return all_rows.includes(row);
 }
 function render() {
     const input = document.getElementById("board_state").value
         .split("\n")
         .filter(line => line.trim() !== "")
         .flatMap(line => {
-        const [color, profession, column, row, degree] = line.split(",").map(e => e.trim());
-        const degree_ = Number(degree);
+        const [color, profession, column, row, degree_str] = line.split(",").map(e => e.trim());
+        const degree_num = Number(degree_str);
         if (isColor(color)
             && isProfession(profession)
             && isColumn(column)
-            && isRow(row)) {
+            && isRow(row)
+            && !Number.isNaN(degree_num)) {
             return [
-                [color, profession, column, row, degree_]
+                [color, profession, column, row, degree_num]
             ];
         }
         let msg = [];
@@ -176,6 +186,9 @@ function render() {
         }
         if (!isRow(row)) {
             msg.push(`invalid row ${row}`);
+        }
+        if (Number.isNaN(degree_num)) {
+            msg.push(`invalid degree ${degree_str}`);
         }
         alert(`${msg.join(", ")} detected. Skipping.`);
         return [];
