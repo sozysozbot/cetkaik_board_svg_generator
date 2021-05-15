@@ -7,6 +7,9 @@
             margin: auto;
             width: 288px;
         }
+        #explanation{
+            margin: 0 0 10px 0;
+        }
     </style>
     <title>cerke board svg generator</title>
 
@@ -14,7 +17,13 @@
 </head>
 
 <body>
-    色(赤黒白),職業(船兵弓車馬虎筆巫将王皇),列,行,回転角(時計回り,度数法)
+    <div id="explanation">
+        色(<script>document.write(ALL_COLORS.join(""));</script>),
+        職業(<script>document.write(ALL_PROFESSIONS.join(""));</script>),
+        列(<script>document.write(ALL_COLUMNS.join(""));</script>),
+        行(<script>document.write(ALL_ROWS.join(" "));</script>),
+        回転角(度数法時計回り)
+    </div>
     <div style="display: flex">
         <textarea id="board_state" style="margin: 0 20px 0 0" onblur="render()">
 赤,兵,M,I,180
