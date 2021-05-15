@@ -28,7 +28,7 @@
         テキストボックスの外をクリックすると盤が更新されます
     </div>
     <div style="display: flex">
-        <textarea id="board_state" style="margin: 0 20px 0 0" onblur="render()">
+        <textarea id="board_state" style="margin: 0 20px 0 0" onblur="main.render()">
 赤,兵,M,I,180
 黒,兵,P,I,180
 赤,船,Z,I,180
@@ -90,33 +90,33 @@
     </div>
     <ul>
         <li>
-            <input type="checkbox" id="coordinate" checked onchange="render()"><label for="coordinate">座標</label>
+            <input type="checkbox" id="coordinate" checked onchange="main.render()"><label for="coordinate">座標</label>
         </li>
         <li>
             <input type="checkbox" id="tamnua_background" checked
-                onchange="document.getElementById('water_edge').checked = this.checked; render()"><label
+                onchange="document.getElementById('water_edge').checked = this.checked; main.render()"><label
                 for="tamnua_background">皇水背景</label>
-            <input type="checkbox" id="water_edge" checked onchange="render()"><label for="water_edge">水端マーク</label>
+            <input type="checkbox" id="water_edge" checked onchange="main.render()"><label for="water_edge">水端マーク</label>
         </li>
         <li>
             <input type="checkbox" id="tamhue_background" checked
-                onchange="document.getElementById('tamhue_slash').checked = this.checked; render()"><label
+                onchange="document.getElementById('tamhue_slash').checked = this.checked; main.render()"><label
                 for="tamhue_background">皇処背景</label>
-            <input type="checkbox" id="tamhue_slash" checked onchange="render()"><label for="tamhue_slash">皇処斜線</label>
+            <input type="checkbox" id="tamhue_slash" checked onchange="main.render()"><label for="tamhue_slash">皇処斜線</label>
         </li>
         <li>
-            <input type="radio" name="tamzo_color" id="tamzo_green" onchange="render()" checked><label
+            <input type="radio" name="tamzo_color" id="tamzo_green" onchange="main.render()" checked><label
                 for="tamzo_green">皇山は緑</label>
-            <input type="radio" name="tamzo_color" id="tamzo_orange" onchange="render()"><label
+            <input type="radio" name="tamzo_color" id="tamzo_orange" onchange="main.render()"><label
                 for="tamzo_orange">皇山はオレンジ</label>
-            <input type="radio" name="tamzo_color" id="tamzo_blue" onchange="render()"><label
+            <input type="radio" name="tamzo_color" id="tamzo_blue" onchange="main.render()"><label
                 for="tamzo_blue">皇山は水色</label>
-            <input type="radio" name="tamzo_color" id="tamzo_white" onchange="render()"><label
+            <input type="radio" name="tamzo_color" id="tamzo_white" onchange="main.render()"><label
                 for="tamzo_white">皇山は白</label>
         </li>
     </ul>
     <div id="download"></div>
     <script>
-        render();
+        main.render();
     </script>
 </body>
