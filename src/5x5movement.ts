@@ -59,28 +59,7 @@ ${sqs(false)}
             `
         } else if (input === "4") {
             document.getElementById("result")!.innerHTML = `
-            ${sq3(0, 0)}
-            ${sq3(0, 1)}
-            ${sq3(0, 2)}
-            ${sq3(0, 3)}
-            ${sq3(0, 4)}
-            ${sq3(1, 0)}
-            ${sq3(1, 1)}
-            ${sq3(1, 2)}
-            ${sq3(1, 3)}
-            ${sq3(1, 4)}
-            ${sq3(2, 0)}
-            ${sq3(2, 2)}
-            ${sq3(2, 4)}
-            ${sq3(3, 0)}
-            ${sq3(3, 1)}
-            ${sq3(3, 3)}
-            ${sq3(3, 4)}
-            ${sq3(4, 0)}
-            ${sq3(4, 1)}
-            ${sq3(4, 2)}
-            ${sq3(4, 3)}
-            ${sq3(4, 4)}
+            ${sqs(false)}
             <path d="m6.430 8.980a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-linecap="square" stroke-width=".29779" style="paint-order:stroke fill markers"/>
             <path d="m6.430 12.540a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-linecap="square" stroke-width=".29779" style="paint-order:stroke fill markers"/>
             <path d="m6.420 5.430a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-linecap="square" stroke-width=".29779" style="paint-order:stroke fill markers"/>
@@ -109,29 +88,7 @@ ${sqs(false)}
             `
         } else if (input === "5") {
             document.getElementById("result")!.innerHTML = `
-            ${sq3(0, 0)}
-            ${sq3(0, 1)}
-            ${sq3(0, 2)}
-            ${sq3(0, 3)}
-            ${sq3(0, 4)}
-            ${sq3(1, 0)}
-            ${sq3(1, 1)}
-            ${sq3(1, 2)}
-            ${sq3(1, 3)}
-            ${sq3(1, 4)}
-            ${sq3(2, 0)}
-            ${sq3(2, 2)}
-            ${sq3(2, 4)}
-            ${sq3(3, 0)}
-            ${sq3(3, 1)}
-            ${sq3(3, 2)}
-            ${sq3(3, 3)}
-            ${sq3(3, 4)}
-            ${sq3(4, 0)}
-            ${sq3(4, 1)}
-            ${sq3(4, 2)}
-            ${sq3(4, 3)}
-            ${sq3(4, 4)}
+            ${sqs(false)}
             <path d="m9.980  1.860a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>
             <path d="m9.980  16.080a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>
             <path d="m17.090 8.970a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>
