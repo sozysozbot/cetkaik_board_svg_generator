@@ -21,9 +21,6 @@ const five_by_five = (() => {
             return g;
         }
         function circle(o) {
-            const style = {
-                dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
-            }[o.style];
             const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
             path.setAttributeNS('http://www.w3.org/2000/svg', "d", `m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422`);
             path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
@@ -47,10 +44,15 @@ const five_by_five = (() => {
                 左下: "m6.364  11.580-5.5338 5.5338",
                 右上: "m17.044 0.900-5.5338 5.5338"
             }[o.dir];
-            const style = {
-                dotted: `stroke-dasharray="0.894, 0.298"`, solid: ""
-            }[o.style];
-            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000" ${style}/>`;
+            const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
+            path.setAttributeNS('http://www.w3.org/2000/svg', "d", d);
+            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
+            path.setAttributeNS('http://www.w3.org/2000/svg', "fill", "none");
+            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke", "#000");
+            if (o.style === "dotted") {
+                path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-dasharray", "0.894, 0.298");
+            }
+            return path;
         }
         function 兵() {
             return `<path d="m8.786 7.742c0.0424 0.33333 0.0352 0.61939-4e-3 0.86622l-0.36958 0.23134 0.0499 0.0581 0.27498-0.0734c-0.2689 1.0207-1.1397 1.2375-1.1397 1.2375l2e-3 0.12887c0.83949-0.21046 1.2416-0.89048 1.4328-1.4452l0.76842-0.20517-0.36586-0.34085-0.30126 0.18857c0.0577-0.25368 0.0684-0.4297 0.0684-0.4297zm-0.64019 0.23284c0.19123 0.8231-0.29934 1.3137-0.29934 1.3137s0.079 0.0124 0.16633 0.0166c0.29695-0.31031 0.61517-1.2056 0.61517-1.2056zm0.91879 1.1768s0.59225 0.53914 0.949 0.98625c0.12786-0.13479 0.26137-0.29519 0.26137-0.29519s-0.57615-0.46567-1.2104-0.69106z"/>`;
@@ -99,25 +101,21 @@ const five_by_five = (() => {
             result.appendChild(board({ orange: false }));
             result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }));
-            result.innerHTML += `
-            ${line({ style: "solid", dir: "右" })}
-            ${line({ style: "solid", dir: "左" })}
-            ${巫()}
-            `;
+            result.appendChild(line({ style: "solid", dir: "右" }));
+            result.appendChild(line({ style: "solid", dir: "左" }));
+            result.innerHTML += 巫();
         }
         else if (input === "3") {
             result.appendChild(board({ orange: true }));
-            result.innerHTML += `
-            ${line({ style: "dotted", dir: "右上" })}
-            ${line({ style: "dotted", dir: "左下" })}
-            ${line({ style: "dotted", dir: "右下" })}
-            ${line({ style: "dotted", dir: "左上" })}
-            ${line({ style: "dotted", dir: "上" })}
-            ${line({ style: "dotted", dir: "下" })}
-            ${line({ style: "dotted", dir: "右" })}
-            ${line({ style: "dotted", dir: "左" })}
-            ${巫()}
-            `;
+            result.appendChild(line({ style: "dotted", dir: "右上" }));
+            result.appendChild(line({ style: "dotted", dir: "左下" }));
+            result.appendChild(line({ style: "dotted", dir: "右下" }));
+            result.appendChild(line({ style: "dotted", dir: "左上" }));
+            result.appendChild(line({ style: "dotted", dir: "上" }));
+            result.appendChild(line({ style: "dotted", dir: "下" }));
+            result.appendChild(line({ style: "dotted", dir: "右" }));
+            result.appendChild(line({ style: "dotted", dir: "左" }));
+            result.innerHTML += 巫();
         }
         else if (input === "4") {
             result.appendChild(board({ orange: false }));
@@ -162,28 +160,28 @@ const five_by_five = (() => {
             result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }));
             result.innerHTML += `
-            ${車()}
-            ${cross({ style: "dotted", x: 0, y: 2 })}
-            ${cross({ style: "dotted", x: 4, y: 2 })}
-            ${cross({ style: "dotted", x: 2, y: 0 })}
-            ${cross({ style: "dotted", x: 2, y: 4 })}
-            `;
+        ${車()}
+        ${cross({ style: "dotted", x: 0, y: 2 })}
+        ${cross({ style: "dotted", x: 4, y: 2 })}
+        ${cross({ style: "dotted", x: 2, y: 0 })}
+        ${cross({ style: "dotted", x: 2, y: 4 })}
+        `;
         }
         else if (input === "7") {
             result.appendChild(board({ orange: true }));
+            result.appendChild(line({ style: "dotted", dir: "右上" }));
+            result.appendChild(line({ style: "solid", dir: "左下" }));
+            result.appendChild(line({ style: "solid", dir: "右下" }));
+            result.appendChild(line({ style: "dotted", dir: "左上" }));
+            result.appendChild(line({ style: "dotted", dir: "上" }));
+            result.appendChild(line({ style: "solid", dir: "下" }));
+            result.appendChild(line({ style: "solid", dir: "右" }));
+            result.appendChild(line({ style: "solid", dir: "左" }));
             result.innerHTML += `
-            ${line({ style: "dotted", dir: "右上" })}
-            ${line({ style: "solid", dir: "左下" })}
-            ${line({ style: "solid", dir: "右下" })}
-            ${line({ style: "dotted", dir: "左上" })}
-            ${line({ style: "dotted", dir: "上" })}
-            ${line({ style: "solid", dir: "下" })}
-            ${line({ style: "solid", dir: "右" })}
-            ${line({ style: "solid", dir: "左" })}
-            ${cross({ style: "solid", x: 0, y: 3 })}
-            ${cross({ style: "dotted", x: 1, y: 0 })}
-            ${cross({ style: "dotted", x: 3, y: 0 })}
-            ${cross({ style: "solid", x: 4, y: 3 })}`;
+        ${cross({ style: "solid", x: 0, y: 3 })}
+        ${cross({ style: "dotted", x: 1, y: 0 })}
+        ${cross({ style: "dotted", x: 3, y: 0 })}
+        ${cross({ style: "solid", x: 4, y: 3 })} `;
         }
         create_download();
     }
