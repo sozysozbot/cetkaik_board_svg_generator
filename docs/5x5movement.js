@@ -14,7 +14,7 @@ const five_by_five = (() => {
             return `<path d="m${x * 3.555 + 2.868} ${y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[color]}" stroke="#000" stroke-linecap="square" style="paint-order:stroke fill markers"/>`;
         }
         function dotted_circle2(x, y) {
-            return `<path d="m${x * 3.555 + 2.868} ${y}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
+            return `<path d="m${x * 3.555 + 2.868} ${y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
         }
         function solid_line(dir) {
             const d = {
@@ -135,10 +135,10 @@ const five_by_five = (() => {
         else if (input === "5") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${dotted_circle2(2, 1.860)}
-            ${dotted_circle2(2, 16.080)}
-            ${dotted_circle2(4, 8.970)}
-            ${dotted_circle2(0, 8.970)}
+            ${dotted_circle2(2, 0)}
+            ${dotted_circle2(2, 4)}
+            ${dotted_circle2(4, 2)}
+            ${dotted_circle2(0, 2)}
             ${車()}
             `;
         }
