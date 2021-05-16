@@ -6,13 +6,23 @@ const five_by_five = (() => {
 
     function render() {
         function board(o: { orange: boolean }) {
-            let ans = "";
+            const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 5; j++) {
-                    ans += `<rect x="${i * 3.5551 + 0.0512}" y="${j * 3.5551 + 0.0512}" width="3.5554" height="3.5554" fill="${i === 2 && j === 2 && o.orange ? "#f95" : "none"}" stroke="#000" stroke-linecap="square" stroke-width=".099263" style="paint-order:stroke fill markers"/>;`
+                    let rect = document.createElementNS('http://www.w3.org/2000/svg', "rect");
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "x", `${i * 3.5551 + 0.0512}`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "y", `${j * 3.5551 + 0.0512}`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "width", `3.5554`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "height", `3.5554`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "fill", i === 2 && j === 2 && o.orange ? "#f95" : "none");
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke", `#000`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke-linecap", `square`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", `.099263`);
+                    rect.setAttributeNS('http://www.w3.org/2000/svg', "style", `paint-order:stroke fill markers`);
+                    g.appendChild(rect);
                 }
             }
-            return ans;
+            return g;
         }
 
         function circle(o: { style: Style, x: number, y: number, fill: Fill }) {
@@ -72,14 +82,18 @@ const five_by_five = (() => {
 
         const input = (document.getElementById("board_state")! as HTMLInputElement).value;
         if (input === "0") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: false })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: false }));
+
+            document.getElementById("result")!.innerHTML += `
             ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
             ${兵()}
             `
         } else if (input === "1") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: true })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: true }));
+
+            document.getElementById("result")!.innerHTML += `
             ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
             ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
             ${circle({ style: "solid", x: 1, y: 3, fill: "none" })}
@@ -91,8 +105,10 @@ const five_by_five = (() => {
             ${将()}
             `
         } else if (input === "2") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: false })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: false }));
+
+            document.getElementById("result")!.innerHTML += `
             ${line({ style: "solid", dir: "右" })}
             ${line({ style: "solid", dir: "左" })}
             ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
@@ -100,8 +116,10 @@ const five_by_five = (() => {
             ${巫()}
             `
         } else if (input === "3") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: true })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: true }));
+
+            document.getElementById("result")!.innerHTML += `
             ${line({ style: "dotted", dir: "右上" })}
             ${line({ style: "dotted", dir: "左下" })}
             ${line({ style: "dotted", dir: "右下" })}
@@ -113,8 +131,10 @@ const five_by_five = (() => {
             ${巫()}
             `
         } else if (input === "4") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: false })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: false }));
+
+            document.getElementById("result")!.innerHTML += `
             ${circle({ style: "solid", x: 0, y: 2, fill: "black" })}
             ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
             ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
@@ -142,8 +162,10 @@ const five_by_five = (() => {
             ${皇()}
             `
         } else if (input === "5") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: false })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: false }));
+
+            document.getElementById("result")!.innerHTML += `
             ${circle({ style: "dotted", x: 2, y: 0, fill: "none" })}
             ${circle({ style: "dotted", x: 2, y: 4, fill: "none" })}
             ${circle({ style: "dotted", x: 4, y: 2, fill: "none" })}
@@ -151,8 +173,10 @@ const five_by_five = (() => {
             ${車()}
             `
         } else if (input === "6") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: false })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: false }));
+
+            document.getElementById("result")!.innerHTML += `
             ${車()}
             ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
             ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
@@ -164,8 +188,10 @@ const five_by_five = (() => {
             ${cross({ style: "dotted", x: 2, y: 4 })}
             `
         } else if (input === "7") {
-            document.getElementById("result")!.innerHTML = `
-            ${board({ orange: true })}
+            document.getElementById("result")!.innerHTML = "";
+            document.getElementById("result")!.appendChild(board({ orange: true }));
+
+            document.getElementById("result")!.innerHTML += `
             ${line({ style: "dotted", dir: "右上" })}
             ${line({ style: "solid", dir: "左下" })}
             ${line({ style: "solid", dir: "右下" })}
