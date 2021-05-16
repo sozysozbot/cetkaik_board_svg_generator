@@ -13,8 +13,11 @@ const five_by_five = (() => {
         function circle(x, y, color) {
             return `<path d="m${x} ${y}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[color]}" stroke="#000" stroke-linecap="square" style="paint-order:stroke fill markers"/>`;
         }
-        function dotted_circle(x, y) {
-            return `<path d="m${x} ${y}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
+        function circle2(x, y, color) {
+            return circle(x * 3.555 + 2.868, y, color);
+        }
+        function dotted_circle2(x, y) {
+            return `<path d="m${x * 3.555 + 2.868} ${y}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
         }
         function solid_line(dir) {
             const d = {
@@ -60,21 +63,21 @@ const five_by_five = (() => {
         if (input === "0") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${circle(9.979, 5.415, "white")}
+            ${circle2(2, 5.415, "white")}
             ${兵()}
             `;
         }
         else if (input === "1") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: true })}
-            ${circle(6.421, 8.97, "white")}
-            ${circle(13.531, 8.97, "white")}
-            ${circle(6.421, 12.53, "white")}
-            ${circle(9.981, 5.42, "white")}
-            ${circle(6.421, 5.42, "white")}
-            ${circle(13.531, 5.42, "white")}
-            ${circle(13.531, 12.53, "white")}
-            ${circle(9.981, 12.53, "white")}
+            ${circle2(1, 8.97, "white")}
+            ${circle2(3, 8.97, "white")}
+            ${circle2(1, 12.53, "white")}
+            ${circle2(2, 5.42, "white")}
+            ${circle2(1, 5.42, "white")}
+            ${circle2(3, 5.42, "white")}
+            ${circle2(3, 12.53, "white")}
+            ${circle2(2, 12.53, "white")}
             ${将()}
             `;
         }
@@ -83,8 +86,8 @@ const five_by_five = (() => {
             ${board({ orange: false })}
             ${solid_line("右")}
             ${solid_line("左")}
-            ${circle(9.979, 12.520, "white")}
-            ${circle(9.979, 5.410, "white")}
+            ${circle2(2, 12.520, "white")}
+            ${circle2(2, 5.410, "white")}
             ${巫()}
             `;
         }
@@ -105,40 +108,40 @@ const five_by_five = (() => {
         else if (input === "4") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${circle(6.430, 8.980, "white")}
-            ${circle(6.430, 12.540, "white")}
-            ${circle(6.420, 5.430, "white")}
-            ${circle(9.980, 5.430, "white")}
-            ${circle(9.980, 12.540, "white")}
-            ${circle(13.540, 8.970, "white")}
-            ${circle(13.530, 5.420, "white")}
-            ${circle(13.540, 12.530, "white")}
-            ${circle(17.090, 1.860, "black")}
-            ${circle(17.090, 8.970, "black")}
-            ${circle(17.090, 5.420, "black")}
-            ${circle(17.090, 12.530, "black")}
-            ${circle(17.090, 16.080, "black")}
-            ${circle(2.870, 8.980, "black")}
-            ${circle(2.870, 5.430, "black")}
-            ${circle(2.870, 12.540, "black")}
-            ${circle(2.870, 1.870, "black")}
-            ${circle(2.870, 16.090, "black")}
-            ${circle(6.420, 1.870, "black")}
-            ${circle(6.430, 16.090, "black")}
-            ${circle(13.530, 1.860, "black")}
-            ${circle(13.540, 16.080, "black")}
-            ${circle(9.980, 1.870, "black")}
-            ${circle(9.980, 16.080, "black")}
+            ${circle2(1, 8.980, "white")}
+            ${circle2(1, 12.540, "white")}
+            ${circle2(1, 5.430, "white")}
+            ${circle2(2, 5.430, "white")}
+            ${circle2(2, 12.540, "white")}
+            ${circle2(3, 8.970, "white")}
+            ${circle2(3, 5.420, "white")}
+            ${circle2(3, 12.530, "white")}
+            ${circle2(4, 1.860, "black")}
+            ${circle2(4, 8.970, "black")}
+            ${circle2(4, 5.420, "black")}
+            ${circle2(4, 12.530, "black")}
+            ${circle2(4, 16.080, "black")}
+            ${circle2(0, 8.980, "black")}
+            ${circle2(0, 5.430, "black")}
+            ${circle2(0, 12.540, "black")}
+            ${circle2(0, 1.870, "black")}
+            ${circle2(0, 16.090, "black")}
+            ${circle2(1, 1.870, "black")}
+            ${circle2(1, 16.090, "black")}
+            ${circle2(3, 1.860, "black")}
+            ${circle2(3, 16.080, "black")}
+            ${circle2(2, 1.870, "black")}
+            ${circle2(2, 16.080, "black")}
             ${皇()}
             `;
         }
         else if (input === "5") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${dotted_circle(9.980, 1.860)}
-            ${dotted_circle(9.980, 16.080)}
-            ${dotted_circle(17.090, 8.970)}
-            ${dotted_circle(2.870, 8.970)}
+            ${dotted_circle2(2, 1.860)}
+            ${dotted_circle2(2, 16.080)}
+            ${dotted_circle2(4, 8.970)}
+            ${dotted_circle2(0, 8.970)}
             ${車()}
             `;
         }
@@ -147,10 +150,10 @@ const five_by_five = (() => {
             ${board({ orange: false })}
             ${車()}
             ${dotted_cross(2.89, 7.89)}
-            ${circle(9.980, 5.420, "white")}
-            ${circle(13.540, 8.970, "white")}
-            ${circle(9.980, 12.530, "white")}
-            ${circle(6.420, 8.970, "white")}
+            ${circle2(2, 5.420, "white")}
+            ${circle2(3, 8.970, "white")}
+            ${circle2(2, 12.530, "white")}
+            ${circle2(1, 8.970, "white")}
             ${dotted_cross(17.11, 7.89)}
             ${dotted_cross(10, 0.78)}
             ${dotted_cross(10, 15)}
