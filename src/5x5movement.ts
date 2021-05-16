@@ -11,34 +11,30 @@ const five_by_five = (() => {
             return ans;
         }
 
-        function solid_circle(x: number, y: number, color: "white" | "black") {
-            return `<path d="m${x * 3.555 + 2.868} ${y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[color]}" stroke="#000" stroke-linecap="square" style="paint-order:stroke fill markers"/>`
+        function circle(o: { style: "solid" | "dotted", x: number, y: number, color: "white" | "black" }) {
+            const style = {
+                dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
+            }[o.style];
+            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[o.color]}" stroke="#000" ${style} stroke-linecap="square" style="paint-order:stroke fill markers"/>`
         }
 
-        function dotted_circle(x: number, y: number) {
-            return `<path d="m${x * 3.555 + 2.868} ${y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`
-        }
-
-        function solid_line(dir: "左" | "右") {
+        function line(o: { style: "solid" | "dotted", dir: "右" | "左" | "下" | "上" | "左上" | "右下" | "左下" | "右上" }) {
             const d = {
-                左: "m6.494 8.910h-5.7573",
-                右: "m17.160 8.910h-5.7573"
-            }[dir];
-            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000"/>`
-        }
-
-        function dotted_line(dir: "右" | "左" | "下" | "上" | "左上" | "右下" | "左下" | "右上") {
-            const d = {
-                右: "m17.154 8.800h-5.7573",
-                左: "m6.484 8.800h-5.7573",
+                右: "m17.154 8.9391h-5.7573",
+                左: "m6.484 8.9391h-5.7573",
                 下: "m8.934 11.260v5.7573",
                 上: "m8.934 0.590v5.7573",
                 左上: "m6.364  6.430-5.5338-5.5338",
                 右下: "m17.044 17.110-5.5338-5.5338",
                 左下: "m6.364  11.580-5.5338 5.5338",
                 右上: "m17.044 0.900-5.5338 5.5338"
-            }[dir];
-            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000" stroke-dasharray="0.894, 0.298"/>`
+            }[o.dir];
+
+            const style = {
+                dotted: `stroke-dasharray="0.894, 0.298"`, solid: ""
+            }[o.style];
+
+            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000" ${style}/>`
         }
 
         function 兵() {
@@ -71,80 +67,80 @@ const five_by_five = (() => {
         if (input === "0") {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: false })}
-            ${solid_circle(2, 1, "white")}
+            ${circle({ style: "solid", x: 2, y: 1, color: "white" })}
             ${兵()}
             `
         } else if (input === "1") {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: true })}
-            ${solid_circle(1, 2, "white")}
-            ${solid_circle(3, 2, "white")}
-            ${solid_circle(1, 3, "white")}
-            ${solid_circle(2, 1, "white")}
-            ${solid_circle(1, 1, "white")}
-            ${solid_circle(3, 1, "white")}
-            ${solid_circle(3, 3, "white")}
-            ${solid_circle(2, 3, "white")}
+            ${circle({ style: "solid", x: 1, y: 2, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 2, color: "white" })}
+            ${circle({ style: "solid", x: 1, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 1, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 3, color: "white" })}
             ${将()}
             `
         } else if (input === "2") {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: false })}
-            ${solid_line("右")}
-            ${solid_line("左")}
-            ${solid_circle(2, 3, "white")}
-            ${solid_circle(2, 1, "white")}
+            ${line({ style: "solid", dir: "右" })}
+            ${line({ style: "solid", dir: "左" })}
+            ${circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 1, color: "white" })}
             ${巫()}
             `
         } else if (input === "3") {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: true })}
-            ${dotted_line("右上")}
-            ${dotted_line("左下")}
-            ${dotted_line("右下")}
-            ${dotted_line("左上")}
-            ${dotted_line("上")}
-            ${dotted_line("下")}
-            ${dotted_line("右")}
-            ${dotted_line("左")}
+            ${line({ style: "dotted", dir: "右上" })}
+            ${line({ style: "dotted", dir: "左下" })}
+            ${line({ style: "dotted", dir: "右下" })}
+            ${line({ style: "dotted", dir: "左上" })}
+            ${line({ style: "dotted", dir: "上" })}
+            ${line({ style: "dotted", dir: "下" })}
+            ${line({ style: "dotted", dir: "右" })}
+            ${line({ style: "dotted", dir: "左" })}
             ${巫()}
             `
         } else if (input === "4") {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: false })}
-            ${solid_circle(0, 2, "black")}
-            ${solid_circle(1, 2, "white")}
-            ${solid_circle(3, 2, "white")}
-            ${solid_circle(4, 2, "black")}
-            ${solid_circle(1, 3, "white")}
-            ${solid_circle(2, 3, "white")}
-            ${solid_circle(3, 3, "white")}
-            ${solid_circle(0, 3, "black")}
-            ${solid_circle(4, 3, "black")}
-            ${solid_circle(0, 0, "black")}
-            ${solid_circle(1, 0, "black")}
-            ${solid_circle(2, 0, "black")}
-            ${solid_circle(3, 0, "black")}
-            ${solid_circle(4, 0, "black")}
-            ${solid_circle(1, 1, "white")}
-            ${solid_circle(2, 1, "white")}
-            ${solid_circle(3, 1, "white")}
-            ${solid_circle(4, 1, "black")}
-            ${solid_circle(0, 1, "black")}
-            ${solid_circle(4, 4, "black")}
-            ${solid_circle(0, 4, "black")}
-            ${solid_circle(1, 4, "black")}
-            ${solid_circle(3, 4, "black")}
-            ${solid_circle(2, 4, "black")}
+            ${circle({ style: "solid", x: 0, y: 2, color: "black" })}
+            ${circle({ style: "solid", x: 1, y: 2, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 2, color: "white" })}
+            ${circle({ style: "solid", x: 4, y: 2, color: "black" })}
+            ${circle({ style: "solid", x: 1, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 0, y: 3, color: "black" })}
+            ${circle({ style: "solid", x: 4, y: 3, color: "black" })}
+            ${circle({ style: "solid", x: 0, y: 0, color: "black" })}
+            ${circle({ style: "solid", x: 1, y: 0, color: "black" })}
+            ${circle({ style: "solid", x: 2, y: 0, color: "black" })}
+            ${circle({ style: "solid", x: 3, y: 0, color: "black" })}
+            ${circle({ style: "solid", x: 4, y: 0, color: "black" })}
+            ${circle({ style: "solid", x: 1, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 4, y: 1, color: "black" })}
+            ${circle({ style: "solid", x: 0, y: 1, color: "black" })}
+            ${circle({ style: "solid", x: 4, y: 4, color: "black" })}
+            ${circle({ style: "solid", x: 0, y: 4, color: "black" })}
+            ${circle({ style: "solid", x: 1, y: 4, color: "black" })}
+            ${circle({ style: "solid", x: 3, y: 4, color: "black" })}
+            ${circle({ style: "solid", x: 2, y: 4, color: "black" })}
             ${皇()}
             `
         } else if (input === "5") {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: false })}
-            ${dotted_circle(2, 0)}
-            ${dotted_circle(2, 4)}
-            ${dotted_circle(4, 2)}
-            ${dotted_circle(0, 2)}
+            ${circle({ style: "dotted", x: 2, y: 0, color: "white" })}
+            ${circle({ style: "dotted", x: 2, y: 4, color: "white" })}
+            ${circle({ style: "dotted", x: 4, y: 2, color: "white" })}
+            ${circle({ style: "dotted", x: 0, y: 2, color: "white" })}
             ${車()}
             `
         } else if (input === "6") {
@@ -152,14 +148,26 @@ const five_by_five = (() => {
             ${board({ orange: false })}
             ${車()}
             ${dotted_cross(0, 2)}
-            ${solid_circle(2, 1, "white")}
-            ${solid_circle(3, 2, "white")}
-            ${solid_circle(2, 3, "white")}
-            ${solid_circle(1, 2, "white")}
+            ${circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 3, y: 2, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 1, y: 2, color: "white" })}
             ${dotted_cross(4, 2)}
             ${dotted_cross(2, 0)}
             ${dotted_cross(2, 4)}
             `
+        } else if (input === "7") {
+            document.getElementById("result")!.innerHTML = `
+            ${board({ orange: true })}
+            ${line({ style: "solid", dir: "右上" })}
+            ${line({ style: "solid", dir: "左下" })}
+            ${line({ style: "solid", dir: "右下" })}
+            ${line({ style: "solid", dir: "左上" })}
+            ${line({ style: "solid", dir: "上" })}
+            ${line({ style: "solid", dir: "下" })}
+            ${line({ style: "solid", dir: "右" })}
+            ${line({ style: "solid", dir: "左" })}`
+
         }
         create_download();
     }

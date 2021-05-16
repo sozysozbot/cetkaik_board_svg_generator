@@ -10,31 +10,33 @@ const five_by_five = (() => {
             }
             return ans;
         }
-        function solid_circle(x, y, color) {
-            return `<path d="m${x * 3.555 + 2.868} ${y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[color]}" stroke="#000" stroke-linecap="square" style="paint-order:stroke fill markers"/>`;
+        function solid_circle(o) {
+            const style = {
+                dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
+            }[o.style];
+            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[o.color]}" stroke="#000" ${style} stroke-linecap="square" style="paint-order:stroke fill markers"/>`;
         }
-        function dotted_circle(x, y) {
-            return `<path d="m${x * 3.555 + 2.868} ${y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke="#000" stroke-dasharray="0.298, 0.596" stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
+        function dotted_circle(o) {
+            const style = {
+                dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
+            }[o.style];
+            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="${{ white: "none", black: "#000" }[o.color]}" stroke="#000" ${style} stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
         }
-        function solid_line(dir) {
+        function line(o) {
             const d = {
-                左: "m6.494 8.910h-5.7573",
-                右: "m17.160 8.910h-5.7573"
-            }[dir];
-            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000"/>`;
-        }
-        function dotted_line(dir) {
-            const d = {
-                右: "m17.154 8.800h-5.7573",
-                左: "m6.484 8.800h-5.7573",
+                右: "m17.154 8.9391h-5.7573",
+                左: "m6.484 8.9391h-5.7573",
                 下: "m8.934 11.260v5.7573",
                 上: "m8.934 0.590v5.7573",
                 左上: "m6.364  6.430-5.5338-5.5338",
                 右下: "m17.044 17.110-5.5338-5.5338",
                 左下: "m6.364  11.580-5.5338 5.5338",
                 右上: "m17.044 0.900-5.5338 5.5338"
-            }[dir];
-            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000" stroke-dasharray="0.894, 0.298"/>`;
+            }[o.dir];
+            const style = {
+                dotted: `stroke-dasharray="0.894, 0.298"`, solid: ""
+            }[o.style];
+            return `<path d="${d}" stroke-width=".298" fill="none" stroke="#000" ${style}/>`;
         }
         function 兵() {
             return `<path d="m8.786 7.742c0.0424 0.33333 0.0352 0.61939-4e-3 0.86622l-0.36958 0.23134 0.0499 0.0581 0.27498-0.0734c-0.2689 1.0207-1.1397 1.2375-1.1397 1.2375l2e-3 0.12887c0.83949-0.21046 1.2416-0.89048 1.4328-1.4452l0.76842-0.20517-0.36586-0.34085-0.30126 0.18857c0.0577-0.25368 0.0684-0.4297 0.0684-0.4297zm-0.64019 0.23284c0.19123 0.8231-0.29934 1.3137-0.29934 1.3137s0.079 0.0124 0.16633 0.0166c0.29695-0.31031 0.61517-1.2056 0.61517-1.2056zm0.91879 1.1768s0.59225 0.53914 0.949 0.98625c0.12786-0.13479 0.26137-0.29519 0.26137-0.29519s-0.57615-0.46567-1.2104-0.69106z"/>`;
@@ -60,85 +62,85 @@ const five_by_five = (() => {
         if (input === "0") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${solid_circle(2, 1, "white")}
+            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
             ${兵()}
             `;
         }
         else if (input === "1") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: true })}
-            ${solid_circle(1, 2, "white")}
-            ${solid_circle(3, 2, "white")}
-            ${solid_circle(1, 3, "white")}
-            ${solid_circle(2, 1, "white")}
-            ${solid_circle(1, 1, "white")}
-            ${solid_circle(3, 1, "white")}
-            ${solid_circle(3, 3, "white")}
-            ${solid_circle(2, 3, "white")}
+            ${solid_circle({ style: "solid", x: 1, y: 2, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 2, color: "white" })}
+            ${solid_circle({ style: "solid", x: 1, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 1, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
             ${将()}
             `;
         }
         else if (input === "2") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${solid_line("右")}
-            ${solid_line("左")}
-            ${solid_circle(2, 3, "white")}
-            ${solid_circle(2, 1, "white")}
+            ${line({ style: "solid", dir: "右" })}
+            ${line({ style: "solid", dir: "左" })}
+            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
             ${巫()}
             `;
         }
         else if (input === "3") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: true })}
-            ${dotted_line("右上")}
-            ${dotted_line("左下")}
-            ${dotted_line("右下")}
-            ${dotted_line("左上")}
-            ${dotted_line("上")}
-            ${dotted_line("下")}
-            ${dotted_line("右")}
-            ${dotted_line("左")}
+            ${line({ style: "dotted", dir: "右上" })}
+            ${line({ style: "dotted", dir: "左下" })}
+            ${line({ style: "dotted", dir: "右下" })}
+            ${line({ style: "dotted", dir: "左上" })}
+            ${line({ style: "dotted", dir: "上" })}
+            ${line({ style: "dotted", dir: "下" })}
+            ${line({ style: "dotted", dir: "右" })}
+            ${line({ style: "dotted", dir: "左" })}
             ${巫()}
             `;
         }
         else if (input === "4") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${solid_circle(0, 2, "black")}
-            ${solid_circle(1, 2, "white")}
-            ${solid_circle(3, 2, "white")}
-            ${solid_circle(4, 2, "black")}
-            ${solid_circle(1, 3, "white")}
-            ${solid_circle(2, 3, "white")}
-            ${solid_circle(3, 3, "white")}
-            ${solid_circle(0, 3, "black")}
-            ${solid_circle(4, 3, "black")}
-            ${solid_circle(0, 0, "black")}
-            ${solid_circle(1, 0, "black")}
-            ${solid_circle(2, 0, "black")}
-            ${solid_circle(3, 0, "black")}
-            ${solid_circle(4, 0, "black")}
-            ${solid_circle(1, 1, "white")}
-            ${solid_circle(2, 1, "white")}
-            ${solid_circle(3, 1, "white")}
-            ${solid_circle(4, 1, "black")}
-            ${solid_circle(0, 1, "black")}
-            ${solid_circle(4, 4, "black")}
-            ${solid_circle(0, 4, "black")}
-            ${solid_circle(1, 4, "black")}
-            ${solid_circle(3, 4, "black")}
-            ${solid_circle(2, 4, "black")}
+            ${solid_circle({ style: "solid", x: 0, y: 2, color: "black" })}
+            ${solid_circle({ style: "solid", x: 1, y: 2, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 2, color: "white" })}
+            ${solid_circle({ style: "solid", x: 4, y: 2, color: "black" })}
+            ${solid_circle({ style: "solid", x: 1, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 0, y: 3, color: "black" })}
+            ${solid_circle({ style: "solid", x: 4, y: 3, color: "black" })}
+            ${solid_circle({ style: "solid", x: 0, y: 0, color: "black" })}
+            ${solid_circle({ style: "solid", x: 1, y: 0, color: "black" })}
+            ${solid_circle({ style: "solid", x: 2, y: 0, color: "black" })}
+            ${solid_circle({ style: "solid", x: 3, y: 0, color: "black" })}
+            ${solid_circle({ style: "solid", x: 4, y: 0, color: "black" })}
+            ${solid_circle({ style: "solid", x: 1, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 4, y: 1, color: "black" })}
+            ${solid_circle({ style: "solid", x: 0, y: 1, color: "black" })}
+            ${solid_circle({ style: "solid", x: 4, y: 4, color: "black" })}
+            ${solid_circle({ style: "solid", x: 0, y: 4, color: "black" })}
+            ${solid_circle({ style: "solid", x: 1, y: 4, color: "black" })}
+            ${solid_circle({ style: "solid", x: 3, y: 4, color: "black" })}
+            ${solid_circle({ style: "solid", x: 2, y: 4, color: "black" })}
             ${皇()}
             `;
         }
         else if (input === "5") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${dotted_circle(2, 0)}
-            ${dotted_circle(2, 4)}
-            ${dotted_circle(4, 2)}
-            ${dotted_circle(0, 2)}
+            ${dotted_circle({ style: "dotted", x: 2, y: 0, color: "white" })}
+            ${dotted_circle({ style: "dotted", x: 2, y: 4, color: "white" })}
+            ${dotted_circle({ style: "dotted", x: 4, y: 2, color: "white" })}
+            ${dotted_circle({ style: "dotted", x: 0, y: 2, color: "white" })}
             ${車()}
             `;
         }
@@ -147,14 +149,26 @@ const five_by_five = (() => {
             ${board({ orange: false })}
             ${車()}
             ${dotted_cross(0, 2)}
-            ${solid_circle(2, 1, "white")}
-            ${solid_circle(3, 2, "white")}
-            ${solid_circle(2, 3, "white")}
-            ${solid_circle(1, 2, "white")}
+            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${solid_circle({ style: "solid", x: 3, y: 2, color: "white" })}
+            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${solid_circle({ style: "solid", x: 1, y: 2, color: "white" })}
             ${dotted_cross(4, 2)}
             ${dotted_cross(2, 0)}
             ${dotted_cross(2, 4)}
             `;
+        }
+        else if (input === "7") {
+            document.getElementById("result").innerHTML = `
+            ${board({ orange: true })}
+            ${line({ style: "solid", dir: "右上" })}
+            ${line({ style: "solid", dir: "左下" })}
+            ${line({ style: "solid", dir: "右下" })}
+            ${line({ style: "solid", dir: "左上" })}
+            ${line({ style: "solid", dir: "上" })}
+            ${line({ style: "solid", dir: "下" })}
+            ${line({ style: "solid", dir: "右" })}
+            ${line({ style: "solid", dir: "左" })}`;
         }
         create_download();
     }
