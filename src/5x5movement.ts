@@ -62,8 +62,8 @@ const five_by_five = (() => {
         }
 
         function dotted_cross(x: number, y: number) {
-            return `<path d="m${x - 2.11} ${y} 2.1091 2.1091" fill="none" stroke="#000" stroke-dasharray="0.894, 0.298" stroke-width=".298"/>
-            <path d="m${x} ${y}-2.1091 2.1091" fill="none" stroke="#000" stroke-dasharray="0.894, 0.298" stroke-width=".298"/>
+            return `<path d="m${3.555 * x + 0.78} ${3.555 * y + 0.78} 2.1091 2.1091" fill="none" stroke="#000" stroke-dasharray="0.894, 0.298" stroke-width=".298"/>
+            <path d="m${3.555 * x + 2.89} ${3.555 * y + 0.78}-2.1091 2.1091" fill="none" stroke="#000" stroke-dasharray="0.894, 0.298" stroke-width=".298"/>
             `
         }
 
@@ -151,14 +151,14 @@ const five_by_five = (() => {
             document.getElementById("result")!.innerHTML = `
             ${board({ orange: false })}
             ${車()}
-            ${dotted_cross(2.89, 7.89)}
+            ${dotted_cross(0, 2)}
             ${solid_circle(2, 1, "white")}
             ${solid_circle(3, 2, "white")}
             ${solid_circle(2, 3, "white")}
             ${solid_circle(1, 2, "white")}
-            ${dotted_cross(17.11, 7.89)}
-            ${dotted_cross(10, 0.78)}
-            ${dotted_cross(10, 15)}
+            ${dotted_cross(4, 2)}
+            ${dotted_cross(2, 0)}
+            ${dotted_cross(2, 4)}
             `
         }
         create_download();
