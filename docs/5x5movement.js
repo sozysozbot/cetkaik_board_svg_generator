@@ -10,17 +10,11 @@ const five_by_five = (() => {
             }
             return ans;
         }
-        function solid_circle(o) {
+        function circle(o) {
             const style = {
                 dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
             }[o.style];
-            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ white: "none", black: "#000" }[o.color]}" stroke="#000" ${style} stroke-linecap="square" style="paint-order:stroke fill markers"/>`;
-        }
-        function dotted_circle(o) {
-            const style = {
-                dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
-            }[o.style];
-            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="${{ white: "none", black: "#000" }[o.color]}" stroke="#000" ${style} stroke-linecap="square" stroke-width=".298" style="paint-order:stroke fill markers"/>`;
+            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ none: "none", black: "#000" }[o.fill]}" stroke="#000" ${style} stroke-linecap="square" style="paint-order:stroke fill markers"/>`;
         }
         function line(o) {
             const d = {
@@ -62,21 +56,21 @@ const five_by_five = (() => {
         if (input === "0") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
             ${兵()}
             `;
         }
         else if (input === "1") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: true })}
-            ${solid_circle({ style: "solid", x: 1, y: 2, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 2, color: "white" })}
-            ${solid_circle({ style: "solid", x: 1, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 1, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
+            ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
+            ${circle({ style: "solid", x: 1, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 1, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
             ${将()}
             `;
         }
@@ -85,8 +79,8 @@ const five_by_five = (() => {
             ${board({ orange: false })}
             ${line({ style: "solid", dir: "右" })}
             ${line({ style: "solid", dir: "左" })}
-            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
             ${巫()}
             `;
         }
@@ -107,40 +101,40 @@ const five_by_five = (() => {
         else if (input === "4") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${solid_circle({ style: "solid", x: 0, y: 2, color: "black" })}
-            ${solid_circle({ style: "solid", x: 1, y: 2, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 2, color: "white" })}
-            ${solid_circle({ style: "solid", x: 4, y: 2, color: "black" })}
-            ${solid_circle({ style: "solid", x: 1, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 0, y: 3, color: "black" })}
-            ${solid_circle({ style: "solid", x: 4, y: 3, color: "black" })}
-            ${solid_circle({ style: "solid", x: 0, y: 0, color: "black" })}
-            ${solid_circle({ style: "solid", x: 1, y: 0, color: "black" })}
-            ${solid_circle({ style: "solid", x: 2, y: 0, color: "black" })}
-            ${solid_circle({ style: "solid", x: 3, y: 0, color: "black" })}
-            ${solid_circle({ style: "solid", x: 4, y: 0, color: "black" })}
-            ${solid_circle({ style: "solid", x: 1, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 4, y: 1, color: "black" })}
-            ${solid_circle({ style: "solid", x: 0, y: 1, color: "black" })}
-            ${solid_circle({ style: "solid", x: 4, y: 4, color: "black" })}
-            ${solid_circle({ style: "solid", x: 0, y: 4, color: "black" })}
-            ${solid_circle({ style: "solid", x: 1, y: 4, color: "black" })}
-            ${solid_circle({ style: "solid", x: 3, y: 4, color: "black" })}
-            ${solid_circle({ style: "solid", x: 2, y: 4, color: "black" })}
+            ${circle({ style: "solid", x: 0, y: 2, fill: "black" })}
+            ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
+            ${circle({ style: "solid", x: 4, y: 2, fill: "black" })}
+            ${circle({ style: "solid", x: 1, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 0, y: 3, fill: "black" })}
+            ${circle({ style: "solid", x: 4, y: 3, fill: "black" })}
+            ${circle({ style: "solid", x: 0, y: 0, fill: "black" })}
+            ${circle({ style: "solid", x: 1, y: 0, fill: "black" })}
+            ${circle({ style: "solid", x: 2, y: 0, fill: "black" })}
+            ${circle({ style: "solid", x: 3, y: 0, fill: "black" })}
+            ${circle({ style: "solid", x: 4, y: 0, fill: "black" })}
+            ${circle({ style: "solid", x: 1, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 4, y: 1, fill: "black" })}
+            ${circle({ style: "solid", x: 0, y: 1, fill: "black" })}
+            ${circle({ style: "solid", x: 4, y: 4, fill: "black" })}
+            ${circle({ style: "solid", x: 0, y: 4, fill: "black" })}
+            ${circle({ style: "solid", x: 1, y: 4, fill: "black" })}
+            ${circle({ style: "solid", x: 3, y: 4, fill: "black" })}
+            ${circle({ style: "solid", x: 2, y: 4, fill: "black" })}
             ${皇()}
             `;
         }
         else if (input === "5") {
             document.getElementById("result").innerHTML = `
             ${board({ orange: false })}
-            ${dotted_circle({ style: "dotted", x: 2, y: 0, color: "white" })}
-            ${dotted_circle({ style: "dotted", x: 2, y: 4, color: "white" })}
-            ${dotted_circle({ style: "dotted", x: 4, y: 2, color: "white" })}
-            ${dotted_circle({ style: "dotted", x: 0, y: 2, color: "white" })}
+            ${circle({ style: "dotted", x: 2, y: 0, fill: "none" })}
+            ${circle({ style: "dotted", x: 2, y: 4, fill: "none" })}
+            ${circle({ style: "dotted", x: 4, y: 2, fill: "none" })}
+            ${circle({ style: "dotted", x: 0, y: 2, fill: "none" })}
             ${車()}
             `;
         }
@@ -149,10 +143,10 @@ const five_by_five = (() => {
             ${board({ orange: false })}
             ${車()}
             ${dotted_cross(0, 2)}
-            ${solid_circle({ style: "solid", x: 2, y: 1, color: "white" })}
-            ${solid_circle({ style: "solid", x: 3, y: 2, color: "white" })}
-            ${solid_circle({ style: "solid", x: 2, y: 3, color: "white" })}
-            ${solid_circle({ style: "solid", x: 1, y: 2, color: "white" })}
+            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
+            ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
+            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
+            ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
             ${dotted_cross(4, 2)}
             ${dotted_cross(2, 0)}
             ${dotted_cross(2, 4)}
