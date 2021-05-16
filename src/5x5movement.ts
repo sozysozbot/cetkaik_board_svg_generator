@@ -26,10 +26,17 @@ const five_by_five = (() => {
         }
 
         function circle(o: { style: Style, x: number, y: number, fill: Fill }) {
-            const style = {
-                dotted: `stroke-dasharray="0.298, 0.596"`, solid: ""
-            }[o.style];
-            return `<path d="m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" stroke-width=".298" fill="${{ none: "none", black: "#000" }[o.fill]}" stroke="#000" ${style} stroke-linecap="square" style="paint-order:stroke fill markers"/>`
+            const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
+            path.setAttributeNS('http://www.w3.org/2000/svg', "d", `m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422`);
+            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
+            path.setAttributeNS('http://www.w3.org/2000/svg', "fill", { none: "none", black: "#000" }[o.fill]);
+            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke", "#000");
+            if (o.style === "dotted") {
+                path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-dasharray", "0.298, 0.596");
+            }
+            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-linecap", "square");
+            path.setAttributeNS('http://www.w3.org/2000/svg', "style", `paint-order:stroke fill markers`);
+            return path;
         }
 
         function line(o: { style: Style, dir: Direction }) {
@@ -81,45 +88,39 @@ const five_by_five = (() => {
         }
 
         const input = (document.getElementById("board_state")! as HTMLInputElement).value;
+
+        const result = document.getElementById("result")!;
+        result.innerHTML = "";
         if (input === "0") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: false }));
-
-            document.getElementById("result")!.innerHTML += `
-            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
-            ${兵()}
-            `
+            result.appendChild(board({ orange: false }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }))
+            result.innerHTML += 兵();
         } else if (input === "1") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: true }));
+            result.appendChild(board({ orange: true }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 3, y: 2, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 1, y: 3, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 1, y: 1, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 3, y: 1, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 3, y: 3, fill: "none" }))
+            result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }))
 
-            document.getElementById("result")!.innerHTML += `
-            ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
-            ${circle({ style: "solid", x: 1, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 1, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
-            ${将()}
-            `
+            result.innerHTML += 将();
         } else if (input === "2") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: false }));
+            result.appendChild(board({ orange: false }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }));
 
-            document.getElementById("result")!.innerHTML += `
+            result.innerHTML += `
             ${line({ style: "solid", dir: "右" })}
             ${line({ style: "solid", dir: "左" })}
-            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
             ${巫()}
             `
         } else if (input === "3") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: true }));
+            result.appendChild(board({ orange: true }));
 
-            document.getElementById("result")!.innerHTML += `
+            result.innerHTML += `
             ${line({ style: "dotted", dir: "右上" })}
             ${line({ style: "dotted", dir: "左下" })}
             ${line({ style: "dotted", dir: "右下" })}
@@ -131,67 +132,59 @@ const five_by_five = (() => {
             ${巫()}
             `
         } else if (input === "4") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: false }));
+            result.appendChild(board({ orange: false }));
+            result.appendChild(circle({ style: "solid", x: 0, y: 2, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 3, y: 2, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 4, y: 2, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 3, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 3, y: 3, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 0, y: 3, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 4, y: 3, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 0, y: 0, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 0, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 0, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 3, y: 0, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 4, y: 0, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 1, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 3, y: 1, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 4, y: 1, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 0, y: 1, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 4, y: 4, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 0, y: 4, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 4, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 3, y: 4, fill: "black" }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 4, fill: "black" }));
 
-            document.getElementById("result")!.innerHTML += `
-            ${circle({ style: "solid", x: 0, y: 2, fill: "black" })}
-            ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
-            ${circle({ style: "solid", x: 4, y: 2, fill: "black" })}
-            ${circle({ style: "solid", x: 1, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 0, y: 3, fill: "black" })}
-            ${circle({ style: "solid", x: 4, y: 3, fill: "black" })}
-            ${circle({ style: "solid", x: 0, y: 0, fill: "black" })}
-            ${circle({ style: "solid", x: 1, y: 0, fill: "black" })}
-            ${circle({ style: "solid", x: 2, y: 0, fill: "black" })}
-            ${circle({ style: "solid", x: 3, y: 0, fill: "black" })}
-            ${circle({ style: "solid", x: 4, y: 0, fill: "black" })}
-            ${circle({ style: "solid", x: 1, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 4, y: 1, fill: "black" })}
-            ${circle({ style: "solid", x: 0, y: 1, fill: "black" })}
-            ${circle({ style: "solid", x: 4, y: 4, fill: "black" })}
-            ${circle({ style: "solid", x: 0, y: 4, fill: "black" })}
-            ${circle({ style: "solid", x: 1, y: 4, fill: "black" })}
-            ${circle({ style: "solid", x: 3, y: 4, fill: "black" })}
-            ${circle({ style: "solid", x: 2, y: 4, fill: "black" })}
-            ${皇()}
-            `
+            result.innerHTML += 皇();
         } else if (input === "5") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: false }));
+            result.appendChild(board({ orange: false }));
+            result.appendChild(circle({ style: "dotted", x: 2, y: 0, fill: "none" }));
+            result.appendChild(circle({ style: "dotted", x: 2, y: 4, fill: "none" }));
+            result.appendChild(circle({ style: "dotted", x: 4, y: 2, fill: "none" }));
+            result.appendChild(circle({ style: "dotted", x: 0, y: 2, fill: "none" }));
 
-            document.getElementById("result")!.innerHTML += `
-            ${circle({ style: "dotted", x: 2, y: 0, fill: "none" })}
-            ${circle({ style: "dotted", x: 2, y: 4, fill: "none" })}
-            ${circle({ style: "dotted", x: 4, y: 2, fill: "none" })}
-            ${circle({ style: "dotted", x: 0, y: 2, fill: "none" })}
-            ${車()}
-            `
+            result.innerHTML += 車();
         } else if (input === "6") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: false }));
+            result.appendChild(board({ orange: false }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 3, y: 2, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
+            result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }));
 
-            document.getElementById("result")!.innerHTML += `
+            result.innerHTML += `
             ${車()}
-            ${circle({ style: "solid", x: 2, y: 1, fill: "none" })}
-            ${circle({ style: "solid", x: 3, y: 2, fill: "none" })}
-            ${circle({ style: "solid", x: 2, y: 3, fill: "none" })}
-            ${circle({ style: "solid", x: 1, y: 2, fill: "none" })}
             ${cross({ style: "dotted", x: 0, y: 2 })}
             ${cross({ style: "dotted", x: 4, y: 2 })}
             ${cross({ style: "dotted", x: 2, y: 0 })}
             ${cross({ style: "dotted", x: 2, y: 4 })}
             `
         } else if (input === "7") {
-            document.getElementById("result")!.innerHTML = "";
-            document.getElementById("result")!.appendChild(board({ orange: true }));
+            result.appendChild(board({ orange: true }));
 
-            document.getElementById("result")!.innerHTML += `
+            result.innerHTML += `
             ${line({ style: "dotted", dir: "右上" })}
             ${line({ style: "solid", dir: "左下" })}
             ${line({ style: "solid", dir: "右下" })}
