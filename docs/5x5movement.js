@@ -5,16 +5,16 @@ const five_by_five = (() => {
             const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 5; j++) {
-                    let rect = document.createElementNS('http://www.w3.org/2000/svg', "rect");
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "x", `${i * 3.5551 + 0.0512}`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "y", `${j * 3.5551 + 0.0512}`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "width", `3.5554`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "height", `3.5554`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "fill", i === 2 && j === 2 && o.orange ? "#f95" : "none");
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke", `#000`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke-linecap", `square`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", `.099263`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "style", `paint-order:stroke fill markers`);
+                    const rect = document.createElementNS('http://www.w3.org/2000/svg', "rect");
+                    rect.setAttribute("x", `${i * 3.5551 + 0.0512}`);
+                    rect.setAttribute("y", `${j * 3.5551 + 0.0512}`);
+                    rect.setAttribute("width", `3.5554`);
+                    rect.setAttribute("height", `3.5554`);
+                    rect.setAttribute("fill", i === 2 && j === 2 && o.orange ? "#f95" : "none");
+                    rect.setAttribute("stroke", `#000`);
+                    rect.setAttribute("stroke-linecap", `square`);
+                    rect.setAttribute("stroke-width", `.099263`);
+                    rect.setAttribute("style", `paint-order:stroke fill markers`);
                     g.appendChild(rect);
                 }
             }
@@ -22,15 +22,15 @@ const five_by_five = (() => {
         }
         function circle(o) {
             const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "d", `m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422`);
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "fill", { none: "none", black: "#000" }[o.fill]);
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke", "#000");
+            path.setAttribute("d", `m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422`);
+            path.setAttribute("stroke-width", ".298");
+            path.setAttribute("fill", { none: "none", black: "#000" }[o.fill]);
+            path.setAttribute("stroke", "#000");
             if (o.style === "dotted") {
-                path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-dasharray", "0.298, 0.596");
+                path.setAttribute("stroke-dasharray", "0.298, 0.596");
             }
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-linecap", "square");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "style", `paint-order:stroke fill markers`);
+            path.setAttribute("stroke-linecap", "square");
+            path.setAttribute("style", `paint-order:stroke fill markers`);
             return path;
         }
         function line(o) {
@@ -45,12 +45,12 @@ const five_by_five = (() => {
                 右上: "m17.044 0.900-5.5338 5.5338"
             }[o.dir];
             const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "d", d);
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "fill", "none");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke", "#000");
+            path.setAttribute("d", d);
+            path.setAttribute("stroke-width", ".298");
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke", "#000");
             if (o.style === "dotted") {
-                path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-dasharray", "0.894, 0.298");
+                path.setAttribute("stroke-dasharray", "0.894, 0.298");
             }
             return path;
         }
@@ -70,12 +70,21 @@ const five_by_five = (() => {
             return `<path d="m9.520  7.660-1.2053 0.48301 5e-3 0.0834 1.1525-0.17994c-0.0183 0.0794-0.0474 0.18391-0.0786 0.28891l-0.0167-0.0155c-0.30882 0.30793-0.70825 0.46767-1.0508 0.61136 0.0173 0.027 0.0493 0.0535 0.078 0.087l0.34883-0.0931c0.0259 0.09 0.0408 0.1827 0.0485 0.27444-0.15499 0.0353-0.31157 0.0684-0.46366 0.0994-0.0607-0.13395-0.13532-0.28232-0.22846-0.43503 0.0347-0.20644 0.10639-0.66628 0.1046-0.9439-0.22195 0.67165-0.47036 0.92303-0.49387 0.95242-0.0171 0.0214 0.1856 0.0643 0.29785 0.0862 0.0211 0.11647 0.043 0.23927 0.0678 0.39033-0.36067 0.0699-0.6369 0.11706-0.6369 0.11706 0.0747 0.0806 0.0867 0.0878 0.20453 0.23932 0.15846-0.0443 0.31498-0.0853 0.46897-0.12418 0.0348 0.22954 0.0656 0.46175 0.0793 0.64678 0.21487-0.24691 0.32424-0.43704 0.32424-0.43704s-0.0334-0.11465-0.0998-0.28424c0.13193-0.0312 0.25684-0.0588 0.38128-0.086-6e-3 0.21267-0.0429 0.39233-0.0662 0.48962l-0.27188 0.11163-8e-3 0.0739 1.1352-0.14079-0.17644-0.14856c0.0579-0.0719 0.12795-0.30719 0.18846-0.54729 0.49558-0.0908 0.81706-0.13376 0.81706-0.13376l-0.42471-0.3566-0.31275 0.17208c-2e-3 6.8e-4 -4e-3 8.7e-4 -4e-3 2e-3 0.0356-0.16054 0.0597-0.28211 0.0597-0.28211l-0.21218-0.19771 0.34723-0.47983zm-0.17558 1.1074c4e-3 0.10287 6e-3 0.20082 5e-3 0.29264-0.0954 0.0279-0.20031 0.0559-0.31148 0.0833 4e-3 -0.0426 6e-3 -0.0868 8e-3 -0.13355-0.0957-0.0507-0.13832-0.0745-0.20166-0.10919zm-4e-3 0.54324c-0.01 0.15985-0.0248 0.29429-0.0402 0.39491l-0.0197-0.0165-0.45631 0.1874c0.0621-0.0903 0.13742-0.24497 0.18345-0.49823 0.1166-0.0244 0.22643-0.0469 0.33267-0.0676z"/>`;
         }
         function cross(o) {
-            const style = {
-                dotted: `stroke-dasharray="0.894, 0.298"`, solid: ""
-            }[o.style];
-            return `<path d="m${3.555 * o.x + 0.78} ${3.555 * o.y + 0.78} 2.1091 2.1091" fill="none" stroke="#000" ${style} stroke-width=".298"/>
-            <path d="m${3.555 * o.x + 2.89} ${3.555 * o.y + 0.78}-2.1091 2.1091" fill="none" stroke="#000" ${style} stroke-width=".298"/>
-            `;
+            const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
+            function get_path(d) {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
+                path.setAttribute("d", d);
+                path.setAttribute("fill", "none");
+                path.setAttribute("stroke", "#000");
+                path.setAttribute("stroke-width", ".298");
+                if (o.style === "dotted") {
+                    path.setAttribute("stroke-dasharray", "0.894, 0.298");
+                }
+                return path;
+            }
+            g.appendChild(get_path(`m${3.555 * o.x + 0.78} ${3.555 * o.y + 0.78} 2.1091 2.1091`));
+            g.appendChild(get_path(`m${3.555 * o.x + 2.89} ${3.555 * o.y + 0.78}-2.1091 2.1091`));
+            return g;
         }
         const input = document.getElementById("board_state").value;
         const result = document.getElementById("result");
@@ -159,13 +168,11 @@ const five_by_five = (() => {
             result.appendChild(circle({ style: "solid", x: 3, y: 2, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }));
-            result.innerHTML += `
-        ${車()}
-        ${cross({ style: "dotted", x: 0, y: 2 })}
-        ${cross({ style: "dotted", x: 4, y: 2 })}
-        ${cross({ style: "dotted", x: 2, y: 0 })}
-        ${cross({ style: "dotted", x: 2, y: 4 })}
-        `;
+            result.appendChild(cross({ style: "dotted", x: 0, y: 2 }));
+            result.appendChild(cross({ style: "dotted", x: 4, y: 2 }));
+            result.appendChild(cross({ style: "dotted", x: 2, y: 0 }));
+            result.appendChild(cross({ style: "dotted", x: 2, y: 4 }));
+            result.innerHTML += 車();
         }
         else if (input === "7") {
             result.appendChild(board({ orange: true }));
@@ -177,11 +184,10 @@ const five_by_five = (() => {
             result.appendChild(line({ style: "solid", dir: "下" }));
             result.appendChild(line({ style: "solid", dir: "右" }));
             result.appendChild(line({ style: "solid", dir: "左" }));
-            result.innerHTML += `
-        ${cross({ style: "solid", x: 0, y: 3 })}
-        ${cross({ style: "dotted", x: 1, y: 0 })}
-        ${cross({ style: "dotted", x: 3, y: 0 })}
-        ${cross({ style: "solid", x: 4, y: 3 })} `;
+            result.appendChild(cross({ style: "solid", x: 0, y: 3 }));
+            result.appendChild(cross({ style: "dotted", x: 1, y: 0 }));
+            result.appendChild(cross({ style: "dotted", x: 3, y: 0 }));
+            result.appendChild(cross({ style: "solid", x: 4, y: 3 }));
         }
         create_download();
     }

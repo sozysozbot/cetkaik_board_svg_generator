@@ -9,16 +9,16 @@ const five_by_five = (() => {
             const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             for (let i = 0; i < 5; i++) {
                 for (let j = 0; j < 5; j++) {
-                    let rect = document.createElementNS('http://www.w3.org/2000/svg', "rect");
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "x", `${i * 3.5551 + 0.0512}`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "y", `${j * 3.5551 + 0.0512}`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "width", `3.5554`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "height", `3.5554`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "fill", i === 2 && j === 2 && o.orange ? "#f95" : "none");
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke", `#000`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke-linecap", `square`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", `.099263`);
-                    rect.setAttributeNS('http://www.w3.org/2000/svg', "style", `paint-order:stroke fill markers`);
+                    const rect = document.createElementNS('http://www.w3.org/2000/svg', "rect");
+                    rect.setAttribute("x", `${i * 3.5551 + 0.0512}`);
+                    rect.setAttribute("y", `${j * 3.5551 + 0.0512}`);
+                    rect.setAttribute("width", `3.5554`);
+                    rect.setAttribute("height", `3.5554`);
+                    rect.setAttribute("fill", i === 2 && j === 2 && o.orange ? "#f95" : "none");
+                    rect.setAttribute("stroke", `#000`);
+                    rect.setAttribute("stroke-linecap", `square`);
+                    rect.setAttribute("stroke-width", `.099263`);
+                    rect.setAttribute("style", `paint-order:stroke fill markers`);
                     g.appendChild(rect);
                 }
             }
@@ -27,15 +27,15 @@ const five_by_five = (() => {
 
         function circle(o: { style: Style, x: number, y: number, fill: Fill }) {
             const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "d", `m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422`);
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "fill", { none: "none", black: "#000" }[o.fill]);
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke", "#000");
+            path.setAttribute("d", `m${o.x * 3.555 + 2.868} ${o.y * 3.5555 + 1.863}a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422`);
+            path.setAttribute("stroke-width", ".298");
+            path.setAttribute("fill", { none: "none", black: "#000" }[o.fill]);
+            path.setAttribute("stroke", "#000");
             if (o.style === "dotted") {
-                path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-dasharray", "0.298, 0.596");
+                path.setAttribute("stroke-dasharray", "0.298, 0.596");
             }
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-linecap", "square");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "style", `paint-order:stroke fill markers`);
+            path.setAttribute("stroke-linecap", "square");
+            path.setAttribute("style", `paint-order:stroke fill markers`);
             return path;
         }
 
@@ -52,12 +52,12 @@ const five_by_five = (() => {
             }[o.dir];
 
             const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "d", d);
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-width", ".298");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "fill", "none");
-            path.setAttributeNS('http://www.w3.org/2000/svg', "stroke", "#000");
+            path.setAttribute("d", d);
+            path.setAttribute("stroke-width", ".298");
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke", "#000");
             if (o.style === "dotted") {
-                path.setAttributeNS('http://www.w3.org/2000/svg', "stroke-dasharray", "0.894, 0.298")
+                path.setAttribute("stroke-dasharray", "0.894, 0.298")
             }
 
             return path;
@@ -84,16 +84,26 @@ const five_by_five = (() => {
         }
 
         function cross(o: { style: Style, x: number, y: number }) {
-            const style = {
-                dotted: `stroke-dasharray="0.894, 0.298"`, solid: ""
-            }[o.style];
-            return `<path d="m${3.555 * o.x + 0.78} ${3.555 * o.y + 0.78} 2.1091 2.1091" fill="none" stroke="#000" ${style} stroke-width=".298"/>
-            <path d="m${3.555 * o.x + 2.89} ${3.555 * o.y + 0.78}-2.1091 2.1091" fill="none" stroke="#000" ${style} stroke-width=".298"/>
-            `
+            const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
+
+            function get_path(d: string) {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
+                path.setAttribute("d", d);
+                path.setAttribute("fill", "none");
+                path.setAttribute("stroke", "#000");
+                path.setAttribute("stroke-width", ".298");
+                if (o.style === "dotted") {
+                    path.setAttribute("stroke-dasharray", "0.894, 0.298")
+                }
+                return path;
+            }
+
+            g.appendChild(get_path(`m${3.555 * o.x + 0.78} ${3.555 * o.y + 0.78} 2.1091 2.1091`));
+            g.appendChild(get_path(`m${3.555 * o.x + 2.89} ${3.555 * o.y + 0.78}-2.1091 2.1091`));
+            return g;
         }
 
         const input = (document.getElementById("board_state")! as HTMLInputElement).value;
-
         const result = document.getElementById("result")!;
         result.innerHTML = "";
         if (input === "0") {
@@ -174,14 +184,12 @@ const five_by_five = (() => {
             result.appendChild(circle({ style: "solid", x: 3, y: 2, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }));
+            result.appendChild(cross({ style: "dotted", x: 0, y: 2 }));
+            result.appendChild(cross({ style: "dotted", x: 4, y: 2 }));
+            result.appendChild(cross({ style: "dotted", x: 2, y: 0 }));
+            result.appendChild(cross({ style: "dotted", x: 2, y: 4 }));
 
-            result.innerHTML += `
-        ${車()}
-        ${cross({ style: "dotted", x: 0, y: 2 })}
-        ${cross({ style: "dotted", x: 4, y: 2 })}
-        ${cross({ style: "dotted", x: 2, y: 0 })}
-        ${cross({ style: "dotted", x: 2, y: 4 })}
-        `
+            result.innerHTML += 車();
         } else if (input === "7") {
             result.appendChild(board({ orange: true }));
             result.appendChild(line({ style: "dotted", dir: "右上" }));
@@ -192,13 +200,10 @@ const five_by_five = (() => {
             result.appendChild(line({ style: "solid", dir: "下" }));
             result.appendChild(line({ style: "solid", dir: "右" }));
             result.appendChild(line({ style: "solid", dir: "左" }));
-
-            result.innerHTML += `
-        ${cross({ style: "solid", x: 0, y: 3 })}
-        ${cross({ style: "dotted", x: 1, y: 0 })}
-        ${cross({ style: "dotted", x: 3, y: 0 })}
-        ${cross({ style: "solid", x: 4, y: 3 })} `
-
+            result.appendChild(cross({ style: "solid", x: 0, y: 3 }));
+            result.appendChild(cross({ style: "dotted", x: 1, y: 0 }));
+            result.appendChild(cross({ style: "dotted", x: 3, y: 0 }));
+            result.appendChild(cross({ style: "solid", x: 4, y: 3 }));
         }
         create_download();
     }
