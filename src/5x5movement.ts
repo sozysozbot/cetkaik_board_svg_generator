@@ -63,15 +63,15 @@ const five_by_five = (() => {
             return path;
         }
 
-        function piece(profession: Profession) {
-            const translateX = GLOBAL_OFFSET_TABLE[profession][0].x - 6.675;
-            const translateY = GLOBAL_OFFSET_TABLE[profession][0].y - 53.388;
+        function piece(o: { profession: Profession }) {
+            const translateX = GLOBAL_OFFSET_TABLE[o.profession][0].x - 6.675;
+            const translateY = GLOBAL_OFFSET_TABLE[o.profession][0].y - 53.388;
 
             const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
             g.setAttribute("transform", `scale(0.206) translate(${translateX} ${translateY})`);
 
             const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-            path.setAttribute("d", GLOBAL_PIECE_PATH_TABLE[profession]);
+            path.setAttribute("d", GLOBAL_PIECE_PATH_TABLE[o.profession]);
 
             g.appendChild(path);
             return g;
@@ -103,7 +103,7 @@ const five_by_five = (() => {
         if (input === "0") {
             result.appendChild(board({ orange: false }));
             result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }))
-            result.appendChild(piece("兵"));
+            result.appendChild(piece({ profession: "兵" }));
         } else if (input === "1") {
             result.appendChild(board({ orange: true }));
             result.appendChild(circle({ style: "solid", x: 1, y: 2, fill: "none" }))
@@ -114,14 +114,14 @@ const five_by_five = (() => {
             result.appendChild(circle({ style: "solid", x: 3, y: 1, fill: "none" }))
             result.appendChild(circle({ style: "solid", x: 3, y: 3, fill: "none" }))
             result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }))
-            result.appendChild(piece("将"));
+            result.appendChild(piece({ profession: "将" }));
         } else if (input === "2") {
             result.appendChild(board({ orange: false }));
             result.appendChild(circle({ style: "solid", x: 2, y: 3, fill: "none" }));
             result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }));
             result.appendChild(line({ style: "solid", dir: "右" }));
             result.appendChild(line({ style: "solid", dir: "左" }));
-            result.appendChild(piece("巫"));
+            result.appendChild(piece({ profession: "巫" }));
         } else if (input === "3") {
             result.appendChild(board({ orange: true }));
             result.appendChild(line({ style: "dotted", dir: "右上" }));
@@ -132,7 +132,7 @@ const five_by_five = (() => {
             result.appendChild(line({ style: "dotted", dir: "下" }));
             result.appendChild(line({ style: "dotted", dir: "右" }));
             result.appendChild(line({ style: "dotted", dir: "左" }));
-            result.appendChild(piece("巫"));
+            result.appendChild(piece({ profession: "巫" }));
         } else if (input === "4") {
             result.appendChild(board({ orange: false }));
             result.appendChild(circle({ style: "solid", x: 0, y: 2, fill: "black" }));
@@ -159,14 +159,14 @@ const five_by_five = (() => {
             result.appendChild(circle({ style: "solid", x: 1, y: 4, fill: "black" }));
             result.appendChild(circle({ style: "solid", x: 3, y: 4, fill: "black" }));
             result.appendChild(circle({ style: "solid", x: 2, y: 4, fill: "black" }));
-            result.appendChild(piece("皇"));
+            result.appendChild(piece({ profession: "皇" }));
         } else if (input === "5") {
             result.appendChild(board({ orange: false }));
             result.appendChild(circle({ style: "dotted", x: 2, y: 0, fill: "none" }));
             result.appendChild(circle({ style: "dotted", x: 2, y: 4, fill: "none" }));
             result.appendChild(circle({ style: "dotted", x: 4, y: 2, fill: "none" }));
             result.appendChild(circle({ style: "dotted", x: 0, y: 2, fill: "none" }));
-            result.appendChild(piece("車"));
+            result.appendChild(piece({ profession: "車" }));
         } else if (input === "6") {
             result.appendChild(board({ orange: false }));
             result.appendChild(circle({ style: "solid", x: 2, y: 1, fill: "none" }));
@@ -177,7 +177,7 @@ const five_by_five = (() => {
             result.appendChild(cross({ style: "dotted", x: 4, y: 2 }));
             result.appendChild(cross({ style: "dotted", x: 2, y: 0 }));
             result.appendChild(cross({ style: "dotted", x: 2, y: 4 }));
-            result.appendChild(piece("車"));
+            result.appendChild(piece({ profession: "車" }));
         } else if (input === "7") {
             result.appendChild(board({ orange: true }));
             result.appendChild(line({ style: "dotted", dir: "右上" }));
@@ -192,7 +192,7 @@ const five_by_five = (() => {
             result.appendChild(cross({ style: "dotted", x: 1, y: 0 }));
             result.appendChild(cross({ style: "dotted", x: 3, y: 0 }));
             result.appendChild(cross({ style: "solid", x: 4, y: 3 }));
-            result.appendChild(piece("弓"));
+            result.appendChild(piece({ profession: "弓" }));
         }
         create_download();
     }
