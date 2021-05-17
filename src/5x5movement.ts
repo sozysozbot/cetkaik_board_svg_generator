@@ -149,7 +149,7 @@ const five_by_five = (() => {
     }
 
     function line(o: { style: Style, dir: Direction }) {
-        const d = {
+        return get_path(o.style, {
             右: "m17.154 8.9391h-5.7573",
             左: "m6.484 8.9391h-5.7573",
             下: "m8.934 11.260v5.7573",
@@ -158,18 +158,7 @@ const five_by_five = (() => {
             右下: "m17.044 17.110-5.5338-5.5338",
             左下: "m6.364  11.580-5.5338 5.5338",
             右上: "m17.044 0.900-5.5338 5.5338"
-        }[o.dir];
-
-        const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-        path.setAttribute("d", d);
-        path.setAttribute("stroke-width", ".298");
-        path.setAttribute("fill", "none");
-        path.setAttribute("stroke", "#000");
-        if (o.style === "dotted") {
-            path.setAttribute("stroke-dasharray", "0.894, 0.298")
-        }
-
-        return path;
+        }[o.dir]);
     }
 
     function piece(o: { profession: Profession }) {
@@ -186,23 +175,22 @@ const five_by_five = (() => {
         return g;
     }
 
+    function get_path(style: Style, d: string) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
+        path.setAttribute("d", d);
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke", "#000");
+        path.setAttribute("stroke-width", ".298");
+        if (style === "dotted") {
+            path.setAttribute("stroke-dasharray", "0.894, 0.298")
+        }
+        return path;
+    }
+
     function cross(o: { style: Style, x: number, y: number }) {
         const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
-
-        function get_path(d: string) {
-            const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-            path.setAttribute("d", d);
-            path.setAttribute("fill", "none");
-            path.setAttribute("stroke", "#000");
-            path.setAttribute("stroke-width", ".298");
-            if (o.style === "dotted") {
-                path.setAttribute("stroke-dasharray", "0.894, 0.298")
-            }
-            return path;
-        }
-
-        g.appendChild(get_path(`m${3.555 * o.x + 0.78} ${3.555 * o.y + 0.78} 2.1091 2.1091`));
-        g.appendChild(get_path(`m${3.555 * o.x + 2.89} ${3.555 * o.y + 0.78}-2.1091 2.1091`));
+        g.appendChild(get_path(o.style, `m${3.555 * o.x + 0.78} ${3.555 * o.y + 0.78} 2.1091 2.1091`));
+        g.appendChild(get_path(o.style, `m${3.555 * o.x + 2.89} ${3.555 * o.y + 0.78}-2.1091 2.1091`));
         return g;
     }
     function append(result: HTMLElement, i: Input) {
