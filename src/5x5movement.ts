@@ -108,9 +108,11 @@ const five_by_five = (() => {
 
     function render() {
         const input = (document.getElementById("board_state")! as HTMLInputElement).value;
+
+        const input_ = JSON.parse(input) as ReadonlyArray<Input>; /* FIXME: totally unsafe */
         const result = document.getElementById("result")!;
 
-        gen_svg(samples[Number(input)], result);
+        gen_svg(input_, result);
     }
 
 
@@ -223,5 +225,5 @@ const five_by_five = (() => {
         var svg_data_uri = 'data:image/svg+xml;base64,' + btoa(svg_source);
         document.getElementById("download")!.innerHTML = "<a href='" + svg_data_uri + `' download><img class="btn" src="download.png" width="80"></a>`;
     }
-    return { render };
+    return { render, samples };
 })();
