@@ -16,7 +16,7 @@ const main = (() => {
         const offsets = GLOBAL_OFFSET_TABLE[profession][0];
 
         const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
-        g.setAttributeNS('http://www.w3.org/2000/svg', 'transform',
+        g.setAttribute('transform',
             `translate(${LEFT * 17.55} ${TOP * 17.55}) rotate(${degree} ${rot_center.x} ${rot_center.y}) translate(${offsets.x} ${offsets.y})`)
         g.appendChild(piece_path(color, profession));
         return g;
@@ -24,8 +24,8 @@ const main = (() => {
 
     function piece_path(color: Color, profession: Profession) {
         const path = document.createElementNS('http://www.w3.org/2000/svg', "path");
-        path.setAttributeNS('http://www.w3.org/2000/svg', 'fill', { 黒: '', 赤: '#d43c00', 白: '#fff' }[color]);
-        path.setAttributeNS('http://www.w3.org/2000/svg', 'd', GLOBAL_PIECE_PATH_TABLE[profession]);
+        path.setAttribute('fill', { 黒: '', 赤: '#d43c00', 白: '#fff' }[color]);
+        path.setAttribute('d', GLOBAL_PIECE_PATH_TABLE[profession]);
         return path;
     }
     function main_g(input: Array<[Color, Profession, Column, Row, Degree]>,
@@ -39,16 +39,6 @@ const main = (() => {
         }) {
         const g = document.createElementNS('http://www.w3.org/2000/svg', "g");
 
-        /*
-         * FIXME: 
-         * THIS SHOULD BE `setAttributeNS`, BUT FOR SOME REASON,
-         * CHANGING THIS TO `setAttributeNS` RESULTS IN THE RESULTING BOARD
-         * TO BE PLACED IN A WRONG POSITION.
-         * THE WORKAROUND IS TO USE `setAttribute` INSTEAD OF `setAttributeNS`,
-         * AND TO ALSO USE `g.innerHTML +=` AT LEAST ONCE AFTER APPENDING THE CHILD ELEMENTS.
-         * PRESUMABLY, THIS BRUTAL WAY OF EDITING THE DOM AMENDS THE PROBLEM
-         * CAUSED BY USING `setAttribute` INSTEAD OF `setAttributeNS`.
-         */
         g.setAttribute("transform", "translate(-41.069 -78.153)");
 
         const tamnua_ = o.tamnua_background ? '#87aade' : 'none';
@@ -98,12 +88,6 @@ const main = (() => {
         for (let i = 0; i < input.length; i++) {
             g.appendChild(piece(...(input[i])));
         }
-
-
-        /*
-         * FIXME: THIS ONE IS REQUIRED BY THE WORKAROUND MENTIONED ABOVE
-         */
-        g.innerHTML += "";
 
         if (o.water_edge) {
             // ZAI の水端マーク1

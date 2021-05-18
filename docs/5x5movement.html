@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        #download {
+            margin: auto;
+            width: 288px;
+        }
+        #explanation{
+            margin: 0 0 10px 0;
+        }
+    </style>
+    <title>cerke board svg generator</title>
+    <script src="type.js"></script>
+    <script src="global_table.js"></script>
+    <script src="5x5movement.js"></script>
+</head>
+<body>
+    <div style="display: flex">
+        <div style="margin: 0 10px 0 0">
+            <textarea id="board_state" style="margin: 0 20px 0 0" onblur="five_by_five.render()" rows="30" cols="30"></textarea><br>
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[0], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[1], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[2], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[3], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[4], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[5], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[6], null, ' '); five_by_five.render();">
+            <input type="button" value="例" onclick="document.getElementById('board_state').value = JSON.stringify(five_by_five.samples[7], null, ' '); five_by_five.render();">
+        </div>
+        <div id="res">
+            <svg id="result" width="17.876mm" height="17.875mm" version="1.1" viewbox="0 0 17.876 17.875" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                <rect stroke="#000" stroke-linecap="square" x="0.050"  y="10.72" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="3.605"  y="10.72" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="0.050"  y="7.16" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="3.605"  y="7.16" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="7.171"  y="7.16" width="3.5554" height="3.5554" fill="#f95" stroke-width=".099" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="0.050"  y="14.27" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="3.605"  y="14.27" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="7.161"  y="10.72" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="7.161"  y="14.27" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="0.050"  y="3.61" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="3.605"  y="3.61" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="0.050"  y="0.05" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="3.605"  y="0.05" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="7.161"  y="3.61" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="7.161"  y="0.05" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="10.711" y="10.72" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="14.271" y="10.72" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="10.711" y="7.16" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="14.271" y="7.16" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="10.711" y="14.27" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="14.271" y="14.27" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="10.711" y="3.61" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="14.271" y="3.61" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="10.711" y="0.05" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <rect stroke="#000" stroke-linecap="square" x="14.271" y="0.05" width="3.5554" height="3.5554" fill="none" stroke-width=".099263" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m6.421  8.97a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m13.531 8.97a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m6.421  12.53a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m9.981  5.42a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m6.421  5.42a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m13.531 5.42a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m13.531 12.53a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path stroke="#000" stroke-linecap="square" d="m9.981  12.53a1.0423 1.0423 0 0 1-1.066 1.0097 1.0423 1.0423 0 0 1-1.0179-1.0581 1.0423 1.0423 0 0 1 1.0502-1.0261 1.0423 1.0423 0 0 1 1.0342 1.0422" fill="none" stroke-width=".29779" style="paint-order:stroke fill markers"/>
+                <path d="m8.661 7.430c-0.016 0.24765-0.055 0.4706-0.10951 0.67084-0.23827 0.0792-0.4947 0.14928-0.69307 0.16249l0.21197 0.20369 0.39193-0.0926c-0.33796 0.89059-0.97189 1.2329-0.97189 1.2329l2e-3 0.0587c0.49575-0.16969 0.98042-0.86536 1.2742-1.3634l0.73-0.17239-0.26605-0.29105s-0.1099 0.0487-0.26944 0.11207c0.0529-0.10142 0.0894-0.17528 0.0894-0.17528l-0.38905-0.34606zm0.36298 1.1151c-0.0514 0.0758-0.0514 0.0674-0.0514 0.0674 0.57035 0.28477 0.59779 0.33005 1.189 0.80651l0.24102-0.36585s-1.2704-0.50802-1.3785-0.50802zm-0.27604 0.0425c0.0212 0.28309 0.0185 0.51958 3e-3 0.71628-0.18617 0.0778-0.40828 0.14574-0.65648 0.17176 0.0823 0.0352 0.21166 0.19399 0.21166 0.19399l0.42066-0.15654c-0.0671 0.44929-0.20272 0.62093-0.20272 0.62093l0.40736 0.31595v-1.0131l0.6387-0.23762-0.23517-0.23517s-0.15063 0.12735-0.40353 0.25635v-0.44162z"/>
+            </svg>
+        </div>
+    </div>
+    <div id="download"></div>
+    <script>
+        five_by_five.render();
+    </script>
+</body>
