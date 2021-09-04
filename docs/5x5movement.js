@@ -94,6 +94,17 @@ const five_by_five = (() => {
             ["cross", { style: "dotted", x: 3, y: 0 }],
             ["cross", { style: "solid", x: 4, y: 3 }],
             ["piece", { profession: "弓" }],
+        ], [
+            ["board", { orange: true }],
+            ["line", { style: "dotted", gap: true, dir: "右上" }],
+            ["line", { style: "dotted", gap: true, dir: "左下" }],
+            ["line", { style: "dotted", gap: true, dir: "右下" }],
+            ["line", { style: "dotted", gap: true, dir: "左上" }],
+            ["line", { style: "dotted", gap: true, dir: "上" }],
+            ["line", { style: "dotted", gap: true, dir: "下" }],
+            ["line", { style: "dotted", gap: true, dir: "右" }],
+            ["line", { style: "dotted", gap: true, dir: "左" }],
+            ["piece", { profession: "馬" }],
         ]
     ];
     function render() {
@@ -135,16 +146,30 @@ const five_by_five = (() => {
         return path;
     }
     function line(o) {
-        return get_path(o.style, {
-            右: "m17.154 8.9391h-5.7573",
-            左: "m6.484 8.9391h-5.7573",
-            下: "m8.934 11.260v5.7573",
-            上: "m8.934 0.590v5.7573",
-            左上: "m6.364  6.430-5.5338-5.5338",
-            右下: "m17.044 17.110-5.5338-5.5338",
-            左下: "m6.364  11.580-5.5338 5.5338",
-            右上: "m17.044 0.900-5.5338 5.5338"
-        }[o.dir]);
+        if (!o.gap) {
+            return get_path(o.style, {
+                右: "m17.154 8.9391h-5.7573",
+                左: "m6.484 8.9391h-5.7573",
+                下: "m8.934 11.260v5.7573",
+                上: "m8.934 0.590v5.7573",
+                左上: "m6.364  6.430-5.5338-5.5338",
+                右下: "m17.044 17.110-5.5338-5.5338",
+                左下: "m6.364  11.580-5.5338 5.5338",
+                右上: "m17.044 0.900-5.5338 5.5338"
+            }[o.dir]);
+        }
+        else {
+            return get_path(o.style, {
+                右: "m20.709 8.9391h-5.7573",
+                左: "m2.929 8.9391h-5.7573",
+                下: "m8.934 14.815v5.7573",
+                上: "m8.934 -2.965v5.7573",
+                左上: "m2.809  2.875-5.5338-5.5338",
+                右下: "m20.599 20.665-5.5338-5.5338",
+                左下: "m2.809  15.135-5.5338 5.5338",
+                右上: "m20.599 -2.655-5.5338 5.5338"
+            }[o.dir]);
+        }
     }
     function piece(o) {
         const translateX = GLOBAL_OFFSET_TABLE[o.profession][0].x - 6.675;
